@@ -1,31 +1,54 @@
 const mongoose = require("mongoose");
 const { User } = require("./user");
-require("dotenv").config();
 
-const projectschema = new mongoose.Schema({
-    ProjectName: {
+const projectSchema = new mongoose.Schema(
+  {
+    projectName: {
+      type: String,
+      // require: true,
+    },
+    description: {
+      type: String,
+      maxlength: 2000,
+      // require: true,
+    },
+    adminId: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: User,
+    },
+    adminName: {
+      type: String,
+    },
+    contributors: [
+      {
+        type: mongoose.Schema.Types.ObjectID,
+        ref: "User",
+      },
+    ],
+    contributorsUsernames: [
+      {
         type: String,
-        require: true,
+      },
+    ],
+    tags: {
+      type: [String],
+      // required: true,
     },
-    Description: {
-        type: [String],
-        maxlength: 50,
-        require: true,
+    contributorsLimit: {
+      type: Number,
+      default: 1,
     },
-    AdminId: {type: mongoose.Schema.Types.ObjectID ,ref: User},
-    pdf:{
-        type: Buffer
+    filePath: {
+      type: String,
     },
-    Contributors: {
-        type: [mongoose.Schema.Types.ObjectID] ,
-        ref: User,
-        required: true,
-        maxlength: 10,
+    fileMimetype: {
+      type: String,
     },
-    tags:{
-        type: [String],
-        required: true
-    }
-})
-const Project = mongoose.model("Project", projectschema)
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const Project = mongoose.model("Project", projectSchema);
 module.exports.Project = Project;

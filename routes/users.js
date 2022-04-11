@@ -3,9 +3,12 @@ const { User } = require("../models/user");
 const express = require("express");
 const auth = require("../middleware/auth");
 const router = express.Router();
+const _ = require("lodash");
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // For login
-router.post("/", async (req, res) => {
+router.post("/login", async (req, res) => {
   let user = await User.findOne({ username: req.body.username });
   if (!user) return res.status(400).send("Invalid username or password...");
 
@@ -23,9 +26,9 @@ router.post("/", async (req, res) => {
 });
 
 // For signup
-router.post("/", async (req, res) => {
-  const { error } = validate(req.body);
-  if (error) return res.status(400).send(error.details[0].message);
+router.post("/signup", async (req, res) => {
+  // const { error } = validate(req.body);
+  // if (error) return res.status(400).send(error.details[0].message);
 
   let user = User.find({ email: req.body.email });
   if (user.email) return res.status(400).send("User already registered..");
@@ -51,4 +54,19 @@ router.get("/me", auth, async (req, res) => {
   res.send(user);
 });
 
+// For Google login
+const googleAuth = async (token) => {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: process.env.GOOGLE_CLIENT_ID,
+  });
+
+  const payload = ticket.getPayload();
+
+  console.log(`User ${payload.name} with email ${payload.email} has logged in`);
+
+  const { name, email, picture, sub } = payload;
+  const userId = sub;
+  return;
+};
 module.exports = router;
