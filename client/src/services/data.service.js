@@ -60,9 +60,9 @@ const respondtoreq = async (status, reqId) => {
   );
 };
 
-const getprofile = async (username) => {
-  return axios.get(API_URL + "profile/" + username);
-};
+// const getprofile = async (username) => {
+//   return axios.get(API_URL + "profile/" + username);
+// };
 
 export default {
   addproject,
@@ -70,5 +70,5 @@ export default {
   joinproject,
   getcolabreqs,
   respondtoreq,
-  getprofile,
+  // getprofile,
 };

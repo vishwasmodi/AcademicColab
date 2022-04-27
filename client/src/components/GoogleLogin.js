@@ -8,7 +8,6 @@ const clientId =
   "1093894063906-v1vgtkhtvupp2678qr71ntsfktp9spr9.apps.googleusercontent.com";
 
 const refreshTokenSetup = (res) => {
-  // Timing to renew access token
   let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
 
   const refreshToken = async () => {
@@ -19,7 +18,6 @@ const refreshTokenSetup = (res) => {
     console.log(newAuthRes.id_token);
     // localStorage.setItem("authToken", newAuthRes.id_token);
 
-    // Setup the other timer after the first one
     setTimeout(refreshToken, refreshTiming);
   };
 
@@ -32,9 +30,7 @@ const GLogin = () => {
   const navigate = useNavigate();
 
   const onSuccess = (res) => {
-    // console.log("Login Success: currentUser:", res.tokenId);
     localStorage.setItem("user", res.tokenId);
-    // console.log(res.tokenId);
     dispatch({
       type: "LOGIN_SUCCESS",
       payload: {
@@ -44,7 +40,7 @@ const GLogin = () => {
       },
     });
 
-    navigate("/completedetails", { replace: true });
+    // navigate("/completedetails", { replace: true });
     // alert(`Logged in successfully welcome ${res.profileObj.name} 😍.`);
 
     refreshTokenSetup(res);
@@ -52,7 +48,6 @@ const GLogin = () => {
 
   const onFailure = (res) => {
     console.log("Login failed: res:", res);
-    // alert(`Failed to login. 😢`);
   };
 
   return (
