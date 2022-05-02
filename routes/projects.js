@@ -57,9 +57,11 @@ router.post("/", auth, async (req, res) => {
 
 router.post("/comments/:projectId", auth, async (req, res) => {
   const project = await Project.findById(req.params.projectId);
+  const userName = await User.findById(req.user._id);
+
   project.comments.push({
     userId: req.user._id,
-    userName: req.user.name,
+    userName: userName.name,
     comment: req.body.comment,
   });
   project.save();

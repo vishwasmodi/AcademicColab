@@ -21,7 +21,15 @@ const intitalColabReqs = {
 };
 
 const initialProfile = {
-  profile: {},
+  profile: {
+    user: {
+      username: "",
+      name: "",
+      email: "",
+    },
+    ownProjects: [],
+    colabProjects: [],
+  },
   loading: false,
 };
 
@@ -99,13 +107,15 @@ export function getcolabreqs(state = intitalColabReqs, action) {
 
 export function getprofile(state = initialProfile, action) {
   const { type, payload } = action;
-  console.log(payload);
   switch (type) {
     case actions.GET_PROFILE_SUCCESS:
       return {
         ...state,
         profile: payload,
+        loading: false,
       };
+    case actions.GET_PROFILE_FAIL:
+      return state;
     default:
       return state;
   }

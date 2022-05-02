@@ -5,11 +5,10 @@ const { User, validate } = require("../models/user");
 const { Project } = require("../models/project");
 
 router.get("/:username", async (req, res) => {
-  let user = await User.find({
-    username: req.params.username.toString(),
+  let user = await User.findOne({
+    username: req.params.username,
   }).select("-password");
   if (!user) return res.status(404).send("User not found");
-
   let ownProjects = await Project.find({
     adminId: user._id,
   }).exec();

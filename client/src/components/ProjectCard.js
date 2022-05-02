@@ -133,23 +133,6 @@ const ProjectCard = ({
         </div>
       </div>
 
-      <div class="">
-        {expand ? (
-          allComments.map((comment) => (
-            <Comment
-              commentBody={comment.comment}
-              commentUserId={comment.userId}
-              commentUserName={comment.userName}
-            />
-          ))
-        ) : allComments && allComments.length > 0 ? (
-          <Comment
-            commentBody={allComments[0].comment}
-            commentUserId={allComments[0].userId}
-            commentUserName={allComments[0].userName}
-          />
-        ) : null}
-      </div>
       <form class="">
         <textarea
           type="text"
@@ -172,6 +155,27 @@ const ProjectCard = ({
           <></>
         )}
       </form>
+
+      <div class="">
+        {expand ? (
+          allComments.map((comment) => (
+            <div>
+              <Comment
+                commentBody={comment.comment}
+                commentUserId={comment.userId}
+                commentUserName={comment.userName}
+              />
+              <div class="h-px bg-black"></div>
+            </div>
+          ))
+        ) : allComments && allComments.length > 0 ? (
+          <Comment
+            commentBody={allComments[0].comment}
+            commentUserId={allComments[0].userId}
+            commentUserName={allComments[0].userName}
+          />
+        ) : null}
+      </div>
     </div>
   );
 };
