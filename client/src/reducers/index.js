@@ -7,6 +7,7 @@ import {
   joinproject,
   getcolabreqs,
   getprofile,
+  addComment,
 } from "./data";
 
 export default combineReducers({
@@ -17,4 +18,5 @@ export default combineReducers({
   joinproject,
   getcolabreqs,
   getprofile,
+  addComment,
 });

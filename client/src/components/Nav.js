@@ -16,13 +16,14 @@ const Nav = () => {
   };
 
   return (
-    <div class="h-20 bg-gray-700 flex items-center justify-between ">
+    <div class="h-18 bg-gray-200 flex items-center justify-between h-10">
       <div class=" ml-8">
         <Link to="/">
-          <img src={logo} class="h-14" alt="" />
+          <div>ProColab</div>
+          {/* <img src={logo} class="h-14" alt="" /> */}
         </Link>
       </div>
-      <Search class="w-40 justify-between" />
+      <Search />
       {isLoggedIn ? (
         <div class="flex  flex-row mr-10">
           <ColabReqDropdown />
@@ -32,7 +33,7 @@ const Nav = () => {
           </Link> */}
           <button
             onClick={handleLogout}
-            class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 rounded focus:outline-none focus:shadow-outline ml-6"
+            class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 rounded py-1 focus:outline-none focus:shadow-outline ml-6"
           >
             Logout
           </button>
@@ -40,12 +41,12 @@ const Nav = () => {
       ) : (
         <div class="flex flex-row mr-10">
           <Link to="/login">
-            <button class=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-6">
+            <button class=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline ml-6">
               Login
             </button>
           </Link>
           <Link to="/register">
-            <button class=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-6">
+            <button class=" bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline ml-6">
               SignUp
             </button>
           </Link>

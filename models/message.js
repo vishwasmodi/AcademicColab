@@ -1,14 +1,22 @@
 const mongoose = require("mongoose");
-const { User } = require("./user");
-const { Project } = require("./project");
-require("dotenv").config();
 
-const messageschema = new mongoose.Schema({
-    ProjectId: {type: mongoose.Schema.objectId ,ref: Project},
-    chats: {
-        SenderId: {type: mongoose.Schema.Types.ObjectID ,ref: User},
-        chat: [String]
-    }
-})
-const Message = mongoose.model("Message", messageschema)
-module.exports.Message = Message;
+const MessageSchema = new mongoose.Schema(
+  {
+    projectId: {
+      type: mongoose.Schema.Types.ObjectId,
+      unique: true,
+      ref: "Project",
+    },
+    sender: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+    text: {
+      type: String,
+    },
+  },
+  { timestamps: true }
+);
+
+const Message = mongoose.model("Message", MessageSchema);
+exports.Message = Message;

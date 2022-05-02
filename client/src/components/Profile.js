@@ -7,14 +7,14 @@ import dataActions from "../actions/dataActions";
 const Profile = (username) => {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(dataActions.getProfile(username.username))
-  //     .then(() => setLoading(false))
-  //     .catch(() => setLoading(false));
-  // }, []);
+  useEffect(() => {
+    dispatch(dataActions.getProfile(username.username))
+      .then(() => setLoading(false))
+      .catch(() => setLoading(false));
+  }, []);
 
-  // const profile = useSelector((state) => state.getprofile.profile);
-
+  const profile = useSelector((state) => state.getprofile.profile);
+  // console.log(profile);
   return (
     <div>
       <main className="profile-page">

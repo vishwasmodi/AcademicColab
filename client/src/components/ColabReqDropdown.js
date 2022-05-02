@@ -25,7 +25,7 @@ const ColabReqDropdown = () => {
     <div>
       <button
         onClick={setShowColabDropdown}
-        class="bg-gray-500 hover:bg-gray-800 text-white font-bold px-2 py-2 rounded-full focus:outline-none focus:shadow-outline ml-6"
+        class="bg-gray-500 hover:bg-gray-800 text-white font-bold px-2 py-1 rounded-full focus:outline-none focus:shadow-outline ml-6"
       >
         <span class="absolute h-3 w-3">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75 ml-16 "></span>

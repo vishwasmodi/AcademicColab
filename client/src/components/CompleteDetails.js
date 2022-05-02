@@ -14,17 +14,17 @@ const CompleteDetails = () => {
     setUsername(username);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    dispatch(completedetails(username))
-      .then(() => {
-        setLoading(false);
-      })
-      .catch(() => {
-        setLoading(false);
-      });
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+  //   dispatch(completedetails(username))
+  //     .then(() => {
+  //       setLoading(false);
+  //     })
+  //     .catch(() => {
+  //       setLoading(false);
+  //     });
+  // };
 
   return (
     <div>
@@ -32,7 +32,7 @@ const CompleteDetails = () => {
       <div class="flex justify-center">
         <form
           class="flex flex-col justify-center bg-white shadow-md rounded  px-8 py-10 mt-28 w-96 "
-          onSubmit={handleSubmit}
+          // onSubmit={handleSubmit}
         >
           <div class="mb-4">
             <label

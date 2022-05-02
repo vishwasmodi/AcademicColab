@@ -6,7 +6,6 @@ const ProfilePage = (props) => {
   const params = useParams();
   return (
     <div>
-      {/* <h1>Hello</h1> */}
       <Profile username={params.username} />
     </div>
   );

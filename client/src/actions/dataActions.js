@@ -104,6 +104,21 @@ const getProfile = (username) => (dispatch) => {
   );
 };
 
+const addComment = (comment, projectId) => (dispatch) => {
+  return DataServices.addComment(comment, projectId).then(
+    (response) => {
+      dispatch({
+        type: actions.ADD_COMMENT_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
 export default {
   addProject,
   getProjects,
@@ -111,4 +126,5 @@ export default {
   getColabReqs,
   respondToReq,
   getProfile,
+  addComment,
 };

@@ -13,7 +13,8 @@ import AddProjectPage from "./pages/AddProjectPage";
 import Nav from "./components/Nav";
 import ProfilePage from "./pages/ProfilePage";
 import CompleteDetails from "./components/CompleteDetails";
-
+import ProjectDescription from "./components/ProjectDescription";
+import Feedback from "./components/Feedback";
 const Routes = () => {
   return (
     <Router>
@@ -29,6 +30,8 @@ const Routes = () => {
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/addproject" element={<AddProjectPage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
+        <Route path="/profile/:projectId" element={<ProjectDescription />} />
+        <Route path="/feedback" element={<Feedback />} />
       </Switch>
     </Router>
   );

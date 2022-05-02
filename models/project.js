@@ -3,7 +3,7 @@ const { User } = require("./user");
 
 const projectSchema = new mongoose.Schema(
   {
-    projectName: {
+    name: {
       type: String,
       // require: true,
     },
@@ -12,32 +12,51 @@ const projectSchema = new mongoose.Schema(
       maxlength: 2000,
       // require: true,
     },
-    adminId: {
+    techStack: {
+      type: Array,
+    },
+    user: {
       type: mongoose.Schema.Types.ObjectID,
       ref: User,
     },
-    adminName: {
+    userName: {
       type: String,
     },
-    contributors: [
+    colaborators: [
       {
         type: mongoose.Schema.Types.ObjectID,
         ref: "User",
       },
     ],
-    contributorsUsernames: [
+    colaboratorsUsername: [
       {
         type: String,
+      },
+    ],
+    comments: [
+      {
+        comment: String,
+        userId: {
+          type: mongoose.Schema.Types.ObjectID,
+          ref: "User",
+        },
+        userName: String,
       },
     ],
     tags: {
       type: [String],
       // required: true,
     },
-    contributorsLimit: {
+    colaboratorsLimit: {
       type: Number,
       default: 1,
     },
+    requests: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     filePath: {
       type: String,
     },

@@ -3,15 +3,15 @@ import React, { useState } from "react";
 const Search = () => {
   const [searchText, setSearchText] = useState("");
   return (
-    <div class="">
+    <div>
       <form class="flex flex-row">
         <input
-          class="rounded-md px-36 py-2 shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          class="rounded-md py-1 px-40 shadow appearance-none text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           type="text"
           onChange={(e) => setSearchText(e.target.value)}
         />
         <button
-          class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-6"
+          class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline ml-6"
           // disabled={loading}
         >
           <span>Search</span>

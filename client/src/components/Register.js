@@ -8,8 +8,6 @@ const Register = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cfUsername, setCfUsername] = useState("");
-  const [ccUsername, setCcUsername] = useState("");
   const [ghUsername, setGhUsername] = useState("");
   const [loading, setLoading] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -37,14 +35,6 @@ const Register = (props) => {
     setPassword(password);
   };
 
-  const onChangeCfUsername = (e) => {
-    const username = e.target.value;
-    setCfUsername(username);
-  };
-  const onChangeCcUsername = (e) => {
-    const username = e.target.value;
-    setCcUsername(username);
-  };
   const onChangeGhUsername = (e) => {
     const username = e.target.value;
     setGhUsername(username);
@@ -54,17 +44,7 @@ const Register = (props) => {
     e.preventDefault();
     setLoading(true);
 
-    dispatch(
-      register(
-        name,
-        username,
-        email,
-        password,
-        cfUsername,
-        ccUsername,
-        ghUsername
-      )
-    )
+    dispatch(register(name, username, email, password, ghUsername))
       .then(() => {
         props.history.push("/profile");
         window.location.reload();
@@ -154,36 +134,6 @@ const Register = (props) => {
             />
           </div>
 
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="cfUsername"
-            >
-              Codeforces Username
-            </label>
-            <input
-              type="text"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="username"
-              value={cfUsername}
-              onChange={onChangeCfUsername}
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              class="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="ccUsername"
-            >
-              Codechef Username
-            </label>
-            <input
-              type="text"
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              name="username"
-              value={ccUsername}
-              onChange={onChangeCcUsername}
-            />
-          </div>
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"

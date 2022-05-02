@@ -5,12 +5,14 @@ const { User, validate } = require("../models/user");
 const { Project } = require("../models/project");
 
 router.get("/:username", async (req, res) => {
-  let user = await User.findOne({ username: req.params.username }).select(
-    "-password"
-  );
+  let user = await User.find({
+    username: req.params.username.toString(),
+  }).select("-password");
+  if (!user) return res.status(404).send("User not found");
+
   let ownProjects = await Project.find({
     adminId: user._id,
-  });
+  }).exec();
 
   let allProjects = await Project.find();
   let colabProjects = [];
@@ -23,7 +25,6 @@ router.get("/:username", async (req, res) => {
     });
     if (flag) colabProjects.push(project);
   });
-  console.log("hello");
   const ret = {
     user: user,
     colabProjects: colabProjects,

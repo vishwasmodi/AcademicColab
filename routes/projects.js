@@ -37,21 +37,32 @@ router.get("/", async (req, res) => {
 
 router.post("/", auth, async (req, res) => {
   const userName = await User.findById(req.user._id).exec();
-  const tags = req.body.tags.split(" ");
-  const contributors = [req.user._id];
-  const contributorsUsernames = [userName.username];
-  console.log("HIII");
+  // const tags = req.body.tags.split(" ");
+  const colaborators = [req.user._id];
+  const colaboratorsUsernames = [userName.username];
+
   let project = new Project({
-    projectName: req.body.projectName,
+    name: req.body.name,
     description: req.body.description,
-    adminId: req.user._id,
-    adminName: userName.name,
-    tags: tags,
-    contributors: contributors,
-    contributorsUsernames: contributorsUsernames,
+    user: req.user._id,
+    userName: userName.name,
+    // tags: tags,
+    colaborators: colaborators,
+    colaboratorsUsernames: colaboratorsUsernames,
     pdf: req.body.pdf,
   });
   project = await project.save();
+  res.send(project);
+});
+
+router.post("/comments/:projectId", auth, async (req, res) => {
+  const project = await Project.findById(req.params.projectId);
+  project.comments.push({
+    userId: req.user._id,
+    userName: req.user.name,
+    comment: req.body.comment,
+  });
+  project.save();
   res.send(project);
 });
 

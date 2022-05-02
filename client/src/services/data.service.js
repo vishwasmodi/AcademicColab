@@ -3,9 +3,8 @@ import axios from "axios";
 let API_URL = "/api/";
 if (process.env.REACT_APP_ENV === "dev")
   API_URL = process.env.REACT_APP_API_PREFIX + API_URL;
-console.log(process.env.REACT_APP_ENV);
+
 const addproject = async (name, description) => {
-  console.log("HI", localStorage.getItem("user"));
   return axios.post(
     API_URL + "projects",
     {
@@ -60,9 +59,24 @@ const respondtoreq = async (status, reqId) => {
   );
 };
 
-// const getprofile = async (username) => {
-//   return axios.get(API_URL + "profile/" + username);
-// };
+const getprofile = async (username) => {
+  return axios.get(API_URL + "profile/" + username);
+};
+
+const addComment = async (comment, projectId) => {
+  console.log(projectId);
+  return axios.post(
+    API_URL + "projects/comments/" + projectId,
+    {
+      comment: comment,
+    },
+    {
+      headers: {
+        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+      },
+    }
+  );
+};
 
 export default {
   addproject,
@@ -70,5 +84,6 @@ export default {
   joinproject,
   getcolabreqs,
   respondtoreq,
-  // getprofile,
+  getprofile,
+  addComment,
 };
