@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const { User, validate } = require("../models/user");
 const { Project } = require("../models/project");
+var scholarly = require("scholarly");
 
 router.get("/:username", async (req, res) => {
   let user = await User.findOne({
@@ -24,11 +25,17 @@ router.get("/:username", async (req, res) => {
     });
     if (flag) colabProjects.push(project);
   });
+
+  let googleScholarProjects = await scholarly.user(user.googleScholarId);
+
   const ret = {
     user: user,
     colabProjects: colabProjects,
     ownProjects: ownProjects,
+    googleScholarProjects: googleScholarProjects,
   };
+  console.log("In profile", ret);
+
   res.send(ret);
 });
 

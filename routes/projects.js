@@ -37,16 +37,15 @@ router.get("/", async (req, res) => {
 
 router.post("/", auth, async (req, res) => {
   const userName = await User.findById(req.user._id).exec();
-  // const tags = req.body.tags.split(" ");
+  console.log(userName);
   const colaborators = [req.user._id];
-  const colaboratorsUsernames = [userName.username];
+  const colaboratorsUsernames = [userName.name];
 
   let project = new Project({
     name: req.body.name,
     description: req.body.description,
     user: req.user._id,
     userName: userName.name,
-    // tags: tags,
     colaborators: colaborators,
     colaboratorsUsernames: colaboratorsUsernames,
     pdf: req.body.pdf,
@@ -63,8 +62,9 @@ router.post("/comments/:projectId", auth, async (req, res) => {
     userId: req.user._id,
     userName: userName.name,
     comment: req.body.comment,
+    commentTime: new Date(),
   });
-  project.save();
+  await project.save();
   res.send(project);
 });
 

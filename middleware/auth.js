@@ -29,9 +29,7 @@ module.exports = async function (req, res, next) {
     // };
     // const userId = dec;
     // req.user = {};
-
     let decoded = jwt.verify(token, JWT_PK);
-    console.log(decoded);
     req.user = decoded;
     next();
   } catch (err) {

@@ -28,7 +28,7 @@ const projectSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    colaboratorsUsername: [
+    colaboratorsUsernames: [
       {
         type: String,
       },
@@ -41,6 +41,7 @@ const projectSchema = new mongoose.Schema(
           ref: "User",
         },
         userName: String,
+        commentTime: Date,
       },
     ],
     tags: {

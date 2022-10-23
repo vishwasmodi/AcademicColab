@@ -36,7 +36,15 @@ router.post("/signup", async (req, res) => {
   user = User.find({ username: req.body.username });
   if (user.username) return res.status(400).send("Username already taken");
 
-  user = new User(_.pick(req.body, ["name", "username", "email", "password"]));
+  user = new User(
+    _.pick(req.body, [
+      "name",
+      "username",
+      "email",
+      "password",
+      "googleScholarId",
+    ])
+  );
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   await user.save();
@@ -46,6 +54,7 @@ router.post("/signup", async (req, res) => {
     name: user.name,
     userId: user._id,
     username: user.username,
+    googleScholarId: user.googleScholarId,
   });
 });
 

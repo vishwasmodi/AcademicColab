@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     required: true,
     maxlength: 100,
   },
+  googleScholarId: {
+    type: String,
+  },
 });
 
 const { JWT_PK } = process.env;
@@ -38,6 +41,7 @@ function validateUser(user) {
     email: Joi.string().max(255).required().email(),
     username: Joi.string().max(255).required(),
     password: Joi.string().max(255).required(),
+    googleScholarId: Joi.string(),
   });
   return schema.validate(user);
 }

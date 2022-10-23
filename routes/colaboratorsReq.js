@@ -46,7 +46,7 @@ router.post("/", auth, async (req, res) => {
     projectName: project.name,
     status: false,
   });
-  request = await request.save();
+  request = await request.save().exec();
   res.send(request);
 });
 

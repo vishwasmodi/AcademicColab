@@ -28,6 +28,7 @@
     "react-router-dom": "^6.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "scholarly": "^1.1.1",
     "socket.io": "^4.4.1"
   }
 }
