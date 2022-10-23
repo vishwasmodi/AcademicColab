@@ -37,7 +37,7 @@ const Feed = () => {
               colaboratorsLimit={project.colaboratorsLimit}
               userName={project.userName}
               requests={project.requests}
-              colaboratorsUsername={project.colaboratorsUsername}
+              colaboratorsUsernames={project.colaboratorsUsernames}
             />
           );
         })}

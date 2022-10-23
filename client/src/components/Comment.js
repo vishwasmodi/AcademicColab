@@ -1,8 +1,12 @@
-const Comment = ({ commentBody, commentUserId, commentUserName }) => {
+const Comment = ({ commentBody, commentUserName, commentTime }) => {
   return (
-    <div class="">
-      <div class="">{commentUserName}</div>
-      <div class="">{commentBody}</div>
+    <div>
+      <div class="flex">
+        <div class="text-sm font-semibold text-gray-800">{commentUserName}</div>
+        &nbsp;&nbsp;
+        <div class="text-sm  text-gray-600">{commentBody}</div>
+      </div>
+      <div class="text-[12px] font-light">{commentTime}</div>
     </div>
   );
 };

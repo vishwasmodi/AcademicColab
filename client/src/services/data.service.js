@@ -64,7 +64,6 @@ const getprofile = async (username) => {
 };
 
 const addComment = async (comment, projectId) => {
-  console.log(projectId);
   return axios.post(
     API_URL + "projects/comments/" + projectId,
     {

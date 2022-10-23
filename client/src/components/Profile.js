@@ -4,6 +4,7 @@ import dataActions from "../actions/dataActions";
 import ProfileProjectCard from "./ProfileProjectCard";
 
 const Profile = (username) => {
+  console.log("here in profile component");
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -99,7 +100,7 @@ const Profile = (username) => {
                   </div>
                 </div>
                 <div className="text-center mt-12">
-                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2">
+                  <h3 className="text-4xl font-semibold leading-normal mb-2 text-gray-800">
                     {profile.user.name}
                   </h3>
                   <div className="mb-2 text-gray-700 mt-10">
@@ -188,6 +189,22 @@ const Profile = (username) => {
               userName={project.userName}
               requests={project.requests}
               colaboratorUsername={project.colaboratorsUsername}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div class="">
+        <div class="text-5xl flex justify-center mt-12 mb-12">
+          {" "}
+          Google Scholar Projects{" "}
+        </div>
+        <div class="grid grid-cols-2 grid-flow-row gap-6 justify-self-center content-center items-center ml-12">
+          {profile.googleScholarProjects.map((project) => (
+            <ProfileProjectCard
+              name={project.title}
+              description={project.journal}
+              githubRepo={project.url}
             />
           ))}
         </div>

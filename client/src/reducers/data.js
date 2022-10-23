@@ -26,9 +26,11 @@ const initialProfile = {
       username: "",
       name: "",
       email: "",
+      googleScholarId: "",
     },
     ownProjects: [],
     colabProjects: [],
+    googleScholarProjects: [],
   },
   loading: false,
 };

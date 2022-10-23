@@ -8,7 +8,7 @@ const Register = (props) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [ghUsername, setGhUsername] = useState("");
+  const [googleScholarId, setGoogleScholarId] = useState("");
   const [loading, setLoading] = useState(false);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { message } = useSelector((state) => state.message);
@@ -35,16 +35,16 @@ const Register = (props) => {
     setPassword(password);
   };
 
-  const onChangeGhUsername = (e) => {
-    const username = e.target.value;
-    setGhUsername(username);
+  const onChangeGoogleScholarId = (e) => {
+    const googleScholarId = e.target.value;
+    setGoogleScholarId(googleScholarId);
   };
 
   const handleRegister = (e) => {
     e.preventDefault();
     setLoading(true);
 
-    dispatch(register(name, username, email, password, ghUsername))
+    dispatch(register(name, username, email, password, googleScholarId))
       .then(() => {
         props.history.push("/profile");
         window.location.reload();
@@ -136,16 +136,16 @@ const Register = (props) => {
           <div class="mb-4">
             <label
               class="block text-gray-700 text-sm font-bold mb-2"
-              htmlFor="ghUsername"
+              htmlFor="googleScholarId"
             >
-              Github Username
+              Google Scholar Id
             </label>
             <input
               type="text"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               name="username"
-              value={ghUsername}
-              onChange={onChangeGhUsername}
+              value={googleScholarId}
+              onChange={onChangeGoogleScholarId}
             />
           </div>
 

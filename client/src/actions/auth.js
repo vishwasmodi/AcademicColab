@@ -3,7 +3,7 @@ import * as actions from "./types";
 import AuthService from "../services/auth.service";
 
 export const register =
-  (name, username, email, password, cfUsername, ccUsername, ghUsername) =>
+  (name, username, email, password, cfUsername, ccUsername, googleScholarId) =>
   (dispatch) => {
     return AuthService.register(
       name,
@@ -12,7 +12,7 @@ export const register =
       password,
       cfUsername,
       ccUsername,
-      ghUsername
+      googleScholarId
     ).then(
       (data) => {
         const message = "Success!";

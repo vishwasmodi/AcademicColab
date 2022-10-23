@@ -16,7 +16,7 @@ const Nav = () => {
   };
 
   return (
-    <div class="h-18 bg-gray-200 flex items-center justify-between h-10">
+    <div class="h-[48px] bg-[rgb(245,245,245)] flex items-center justify-between">
       <div class=" ml-8">
         <Link to="/">
           <div>ProColab</div>
