@@ -6,7 +6,7 @@ const Comment = ({ commentBody, commentUserName, commentTime }) => {
         &nbsp;&nbsp;
         <div class="text-sm  text-gray-600">{commentBody}</div>
       </div>
-      <div class="text-[12px] font-light">{commentTime}</div>
+      <div class="text-[12px] font-light">{commentTime.toString()}</div>
     </div>
   );
 };

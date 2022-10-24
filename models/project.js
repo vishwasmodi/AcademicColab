@@ -28,9 +28,14 @@ const projectSchema = new mongoose.Schema(
         ref: "User",
       },
     ],
-    colaboratorsUsernames: [
+    colaboratorsDetails: [
       {
-        type: String,
+        name: String,
+        username: String,
+        userId: {
+          type: mongoose.Schema.Types.ObjectID,
+          ref: "User",
+        },
       },
     ],
     comments: [

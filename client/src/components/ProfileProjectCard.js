@@ -7,13 +7,10 @@ const ProjectCard = ({
   id,
   name,
   description,
-  githubRepo,
-  techStack,
-  colaborators,
-  user,
+  link,
   userName,
   requests,
-  colaboratorUsername,
+  colaboratorsDetails,
 }) => {
   const [loading, setLoading] = useState(false);
   const [requested, setRequested] = useState(null);
@@ -25,38 +22,31 @@ const ProjectCard = ({
     dispatch(dataActions.joinProject(id)).then(setLoading(false));
     setRequested(true);
   };
-  // const curUser = JSON.parse(localStorage.getItem("user"));
 
-  // const already = colaborators.find((colaborator) => {
-  //   return curUser && colaborator.toString() === curUser.userId;
-  // });
-  // let req = null;
-  // if (curUser) {
-  //   req = requests.find((req) => req === curUser.userId);
-  // }
   return (
     <div class=" opacity-90 hover:scale-105 mt-2 grid justify-self-center w-3/5">
       <div class="max-w-lg rounded overflow-hidden shadow-lg pb-4 mb-4">
         <div class="px-6 py-4">
-          <div class="flex space-between">
-            <div class="font-bold text-xl mb-2">{name}</div>
-            <div class="text-l ml-10">{userName}</div>
+          <div class="text-[rgb(26,14,171)] text-xl">
+            <Link to={`/projects/${id}`}>{name}</Link>
           </div>
-          <p class="text-gray-700 text-base">{description}</p>
-          <h2 class="text-gray-700 text-base mt-3">
-            Github Repo:
-            <Link to={`${githubRepo}`}> {githubRepo}</Link>{" "}
+          <div>
+            {colaboratorsDetails.map((colaborator) => {
+              return (
+                <div class="text-[rgb(119,119,119)] text-sm">
+                  <Link to={`/profile/${colaborator.username}`}>
+                    {colaborator.name},&nbsp;&nbsp;
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+          <p class="text-[rgb(119,119,119)] text-sm">{description}</p>
+          <h2 class="text-gray-700 mt-3 text-sm">
+            Link:
+            <Link to={`${link}`}> {link}</Link>{" "}
           </h2>
         </div>
-        {/* <div class="px-6 pt-4 pb-2">
-          {techStack.map((tech) => {
-            return (
-              <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                {tech}
-              </span>
-            );
-          })}
-        </div> */}
         <div class="flex justify-end mr-6">
           <button
             onClick={handleJoinProject}
@@ -71,16 +61,6 @@ const ProjectCard = ({
               ></svg>
             ) : null}
           </button>
-        </div>
-        <div class="flex ml-8">
-          <h1>Colaborators: &nbsp;</h1>
-          {/* {colaboratorUsername.map((username) => {
-            return (
-              <div class="text-blue-600">
-                <Link to={`/profile/${username}`}>{username},&nbsp;&nbsp;</Link>
-              </div>
-            );
-          })} */}
         </div>
       </div>
     </div>

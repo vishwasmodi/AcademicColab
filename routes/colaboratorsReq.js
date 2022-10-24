@@ -46,7 +46,7 @@ router.post("/", auth, async (req, res) => {
     projectName: project.name,
     status: false,
   });
-  request = await request.save().exec();
+  request = await request.save();
   res.send(request);
 });
 
@@ -58,10 +58,15 @@ router.post("/:id", auth, async (req, res) => {
   if (!request || req.user._id !== request.receiverId.toString())
     res.status(400).send("Wrong request id");
   if (req.body.status === "Accept") {
+    const colaboratorsDetails = {
+      name: sender.name,
+      username: sender.username,
+      userId: sender._id,
+    };
     await Project.findByIdAndUpdate(request.projectId.toString(), {
       $push: {
         colaborators: sender._id,
-        colaboratorsUsername: sender.username,
+        colaboratorsDetails: colaboratorsDetails,
       },
       function(err) {
         if (err) return next(err);

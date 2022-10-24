@@ -23,6 +23,10 @@ const getprojects = async () => {
   return axios.get(API_URL + "projects");
 };
 
+const getproject = async (id) => {
+  return axios.get(API_URL + "projects/" + id);
+};
+
 const joinproject = async (id) => {
   return axios.post(
     API_URL + "colaboratorsReq",
@@ -80,6 +84,7 @@ const addComment = async (comment, projectId) => {
 export default {
   addproject,
   getprojects,
+  getproject,
   joinproject,
   getcolabreqs,
   respondtoreq,

@@ -5,6 +5,11 @@ const initialStateGet = {
   loading: false,
 };
 
+const initialProject = {
+  project: {},
+  loading: false,
+};
+
 const initialStateAdd = {
   newProject: {},
   loading: false,
@@ -65,6 +70,24 @@ export function getprojects(state = initialStateGet, action) {
         loading: false,
       };
     case actions.GET_PROJECTS_FAIL:
+      return {
+        ...state,
+      };
+    default:
+      return state;
+  }
+}
+
+export function getproject(state = initialProject, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case actions.GET_PROJECT_SUCCESS:
+      return {
+        ...state,
+        project: payload,
+        loading: false,
+      };
+    case actions.GET_PROJECT_FAIL:
       return {
         ...state,
       };

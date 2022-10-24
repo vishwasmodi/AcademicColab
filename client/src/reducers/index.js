@@ -3,6 +3,7 @@ import auth from "./auth";
 import message from "./message";
 import {
   getprojects,
+  getproject,
   addproject,
   joinproject,
   getcolabreqs,
@@ -14,6 +15,7 @@ export default combineReducers({
   auth,
   message,
   getprojects,
+  getproject,
   addproject,
   joinproject,
   getcolabreqs,

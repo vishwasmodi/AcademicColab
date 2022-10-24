@@ -36,6 +36,21 @@ const getProjects = () => (dispatch) => {
   );
 };
 
+const getProject = (id) => (dispatch) => {
+  return DataServices.getproject(id).then(
+    (response) => {
+      dispatch({
+        type: actions.GET_PROJECT_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
 const joinProject = (id) => (dispatch) => {
   return DataServices.joinproject(id).then(
     (response) => {
@@ -122,6 +137,7 @@ const addComment = (comment, projectId) => (dispatch) => {
 export default {
   addProject,
   getProjects,
+  getProject,
   joinProject,
   getColabReqs,
   respondToReq,

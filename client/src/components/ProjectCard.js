@@ -8,23 +8,18 @@ const ProjectCard = ({
   id,
   name,
   description,
-  githubRepo,
+  link,
   comments,
-  colaborators,
-  votes,
-  colaboratorsLimit,
   userName,
   requests,
-  colaboratorsUsernames,
+  colaboratorsDetails,
 }) => {
   const [loading, setLoading] = useState(false);
   const [requested, setRequested] = useState(null);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [expand, setExpand] = useState(false);
   const [newComment, setNewComment] = useState("");
-  const [showCommentButton, setShowCommentButton] = useState(false);
   const [allComments, setAllComments] = useState(comments);
-  const [commentPosted, setCommentPosted] = useState(false);
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
@@ -47,15 +42,8 @@ const ProjectCard = ({
           commentTime: new Date(),
         },
       ]);
-
-      setCommentPosted(!commentPosted);
-      setShowCommentButton(false);
     }
   };
-
-  useEffect(() => {
-    setNewComment("");
-  }, [commentPosted]);
 
   const handleJoinProject = (e) => {
     e.preventDefault();
@@ -76,10 +64,12 @@ const ProjectCard = ({
           <Link to={`/projects/${id}`}>{name}</Link>
         </div>
         <div>
-          {colaboratorsUsernames.map((username) => {
+          {colaboratorsDetails.map((colaborator) => {
             return (
               <div class="text-[rgb(119,119,119)] text-sm">
-                <Link to={`/profile/${username}`}>{username},&nbsp;&nbsp;</Link>
+                <Link to={`/profile/${colaborator.username}`}>
+                  {colaborator.name},&nbsp;&nbsp;
+                </Link>
               </div>
             );
           })}
@@ -87,7 +77,7 @@ const ProjectCard = ({
         <p class="text-[rgb(119,119,119)] text-sm">{description}</p>
         <h2 class="text-gray-700 mt-3 text-sm">
           Link:
-          <Link to={`${githubRepo}`}> {githubRepo}</Link>{" "}
+          <Link to={`${link}`}> {link}</Link>{" "}
         </h2>
       </div>
       <div class="flex justify-end mr-6">
@@ -118,7 +108,6 @@ const ProjectCard = ({
                 type="text"
                 onChange={(e) => {
                   setNewComment(e.target.value);
-                  setShowCommentButton(true);
                 }}
                 placeholder="Add a comment..."
                 class="border-2 border-gray-200 rounded-md w-full  px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-blue-500"
@@ -138,7 +127,6 @@ const ProjectCard = ({
                   commentUserName={comment.userName}
                   commentTime={comment.commentTime}
                 />
-                {/* <div class="h-px bg-black"></div> */}
               </div>
             ))}
           </div>

@@ -30,7 +30,7 @@ const Routes = () => {
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/addproject" element={<AddProjectPage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
-        <Route path="/profile/:projectId" element={<ProjectDescription />} />
+        <Route path="/projects/:projectId" element={<ProjectDescription />} />
         <Route path="/feedback" element={<Feedback />} />
       </Switch>
     </Router>

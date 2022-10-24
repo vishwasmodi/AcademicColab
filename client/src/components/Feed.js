@@ -29,15 +29,11 @@ const Feed = () => {
               id={project._id}
               name={project.name}
               description={project.description}
-              githubRepo={project.githubRepo}
-              techStack={project.techStack}
+              link={project.githubRepo}
               comments={project.comments}
-              colaborators={project.colaborators}
-              votes={project.votes}
-              colaboratorsLimit={project.colaboratorsLimit}
               userName={project.userName}
               requests={project.requests}
-              colaboratorsUsernames={project.colaboratorsUsernames}
+              colaboratorsDetails={project.colaboratorsDetails}
             />
           );
         })}

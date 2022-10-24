@@ -35,19 +35,31 @@ router.get("/", async (req, res) => {
   res.send(projects);
 });
 
+router.get("/:id", async (req, res) => {
+  const project = await Project.findById(req.params.id);
+  console.log(project);
+  if (!project) return res.status(404).send("Project not found.");
+  res.send(project);
+});
+
 router.post("/", auth, async (req, res) => {
-  const userName = await User.findById(req.user._id).exec();
-  console.log(userName);
+  const user = await User.findById(req.user._id).exec();
   const colaborators = [req.user._id];
-  const colaboratorsUsernames = [userName.name];
+  const colaboratorsDetails = [];
+  console.log(user);
+  colaboratorsDetails.push({
+    name: user.name,
+    username: user.username,
+    userId: user._id,
+  });
 
   let project = new Project({
     name: req.body.name,
     description: req.body.description,
     user: req.user._id,
-    userName: userName.name,
+    userName: user.name,
     colaborators: colaborators,
-    colaboratorsUsernames: colaboratorsUsernames,
+    colaboratorsDetails: colaboratorsDetails,
     pdf: req.body.pdf,
   });
   project = await project.save();

@@ -4,11 +4,9 @@ import dataActions from "../actions/dataActions";
 import ProfileProjectCard from "./ProfileProjectCard";
 
 const Profile = (username) => {
-  console.log("here in profile component");
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("herer");
     dispatch(dataActions.getProfile(username.username));
   }, []);
 
@@ -156,15 +154,10 @@ const Profile = (username) => {
               id={project._id}
               name={project.name}
               description={project.description}
-              githubRepo={project.githubRepo}
-              techStack={project.techStack}
-              colaborators={project.colaborators}
-              votes={project.votes}
-              colaboratorsLimit={project.colaboratorsLimit}
-              user={project.user}
+              link={project.githubRepo}
               userName={project.userName}
               requests={project.requests}
-              colaboratorUsername={project.colaboratorsUsername}
+              colaboratorsDetails={project.colaboratorsDetails}
             />
           ))}
         </div>
@@ -180,15 +173,10 @@ const Profile = (username) => {
               id={project._id}
               name={project.name}
               description={project.description}
-              githubRepo={project.githubRepo}
-              techStack={project.techStack}
-              colaborators={project.colaborators}
-              votes={project.votes}
-              colaboratorsLimit={project.colaboratorsLimit}
-              user={project.user}
+              link={project.githubRepo}
               userName={project.userName}
               requests={project.requests}
-              colaboratorUsername={project.colaboratorsUsername}
+              colaboratorsDetails={project.colaboratorsDetails}
             />
           ))}
         </div>
@@ -204,7 +192,8 @@ const Profile = (username) => {
             <ProfileProjectCard
               name={project.title}
               description={project.journal}
-              githubRepo={project.url}
+              link={project.url}
+              colaboratorsDetails={[]}
             />
           ))}
         </div>
