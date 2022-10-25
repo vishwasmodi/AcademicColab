@@ -20,7 +20,11 @@ const addproject = async (name, description) => {
 };
 
 const getprojects = async () => {
-  return axios.get(API_URL + "projects");
+  return axios.get(API_URL + "projects", {
+    headers: {
+      "x-auth-token": localStorage.getItem("user"),
+    },
+  });
 };
 
 const getproject = async (id) => {

@@ -16,6 +16,7 @@
     "dotenv": "^14.3.2",
     "downloadjs": "^1.4.7",
     "express": "^4.17.2",
+    "firebase-admin": "^11.2.0",
     "google-auth-library": "^7.14.1",
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",

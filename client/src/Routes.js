@@ -15,19 +15,24 @@ import ProfilePage from "./pages/ProfilePage";
 import CompleteDetails from "./components/CompleteDetails";
 import ProjectDescription from "./components/ProjectDescription";
 import Feedback from "./components/Feedback";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import ForgotPassword from "./components/ForgotPassword";
+
 const Routes = () => {
   return (
     <Router>
-      <div class="sticky top-0">
+      {/* <div class="sticky top-0">
         <Nav />
-      </div>
+      </div> */}
 
       <Switch>
         {/* <Route exact path='/route' component={Page} /> for all the pages */}
-        <Route exact path="" element={<Home />} />
-        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/" element={<Login />} />
+        <Route exact path="/home" element={<Home />} />
         <Route exact path="/completedetails" element={<CompleteDetails />} />
-        <Route exact path="/register" element={<RegisterPage />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/forgotpassword" element={<ForgotPassword />} />
         <Route exact path="/addproject" element={<AddProjectPage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
         <Route path="/projects/:projectId" element={<ProjectDescription />} />

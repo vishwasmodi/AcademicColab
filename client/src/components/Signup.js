@@ -1,19 +1,35 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import LoginNav from "./LoginNav";
 import background from "../static/register_bg_2.png";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import {
   auth,
-  logInWithEmailAndPassword,
+  registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../config/firebase-config";
-import { useAuthState } from "react-firebase-hooks/auth";
 
-const Login = () => {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
+
+  const register = () => {
+    if (name == "") alert("Please enter name");
+    registerWithEmailAndPassword(name, email, password);
+  };
+
+  useEffect(() => {
+    if (loading) return;
+    if (user) navigate("/home");
+  }, [user, loading]);
+
+  const onChangeName = (e) => {
+    const email = e.target.value;
+    setName(email);
+  };
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -24,20 +40,6 @@ const Login = () => {
     const password = e.target.value;
     setPassword(password);
   };
-
-  useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
-    if (user) {
-      user.getIdToken().then((token) => {
-        console.log(token);
-        localStorage.setItem("user", token);
-      });
-      navigate("/home");
-    }
-  }, [user, loading]);
 
   return (
     <div>
@@ -60,7 +62,7 @@ const Login = () => {
                   <div className="rounded-t mb-0 px-6 py-6">
                     <div className="text-center mb-3">
                       <h6 className="text-gray-600 text-sm font-bold">
-                        Sign in with
+                        Sign up with
                       </h6>
                     </div>
                     <div className="btn-wrapper text-center">
@@ -94,9 +96,25 @@ const Login = () => {
                   </div>
                   <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                     <div className="text-gray-500 text-center mb-3 font-bold">
-                      <small>Or sign in with credentials</small>
+                      <small>Or sign up with new credentials</small>
                     </div>
                     <form>
+                      <div className="relative w-full mb-3">
+                        <label
+                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-password"
+                        >
+                          Name
+                        </label>
+                        <input
+                          type="name"
+                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                          placeholder="Name"
+                          style={{ transition: "all .15s ease" }}
+                          onChange={onChangeName}
+                        />
+                      </div>
+
                       <div className="relative w-full mb-3">
                         <label
                           className="block uppercase text-gray-700 text-xs font-bold mb-2"
@@ -134,25 +152,19 @@ const Login = () => {
                           className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                           type="button"
                           style={{ transition: "all .15s ease" }}
-                          onClick={() =>
-                            logInWithEmailAndPassword(email, password)
-                          }
+                          onClick={register}
                         >
-                          Sign In
+                          Sign Up
                         </button>
                       </div>
                     </form>
                   </div>
-                  <div className="flex justify-evenly mb-4">
+                  <div className="flex flex-wrap mb-4 justify-end">
                     <div className="w-1/2 text-center">
-                      <Link to="/forgotpassword">
-                        <small>Forgot password?</small>
-                      </Link>
-                    </div>
-                    <div className="w-1/2 text-center">
-                      <Link to="/signup">
-                        <small>Create new account</small>
-                      </Link>
+                      <small>
+                        Have an account? &nbsp;&nbsp;
+                        <Link to="/">Log In</Link>
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -163,5 +175,5 @@ const Login = () => {
       </main>
     </div>
   );
-};
-export default Login;
+}
+export default Signup;
