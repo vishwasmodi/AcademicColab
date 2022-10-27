@@ -8,12 +8,16 @@ import {
   signInWithGoogle,
 } from "../config/firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useDispatch, useSelector } from "react-redux";
+import dataActions from "../actions/dataActions";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [user, loading, error] = useAuthState(auth);
+  const [detailsStatus, setDetailsStatus] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onChangeEmail = (e) => {
     const email = e.target.value;
@@ -26,18 +30,34 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (loading) {
-      // maybe trigger a loading screen
-      return;
-    }
+    // if (loading) {
+    //   // maybe trigger a loading screen
+    //   return;
+    // }
     if (user) {
       user.getIdToken().then((token) => {
         console.log(token);
         localStorage.setItem("user", token);
+        dispatch(dataActions.completeDetailsStatus());
+        setDetailsStatus(true);
       });
-      navigate("/home");
     }
-  }, [user, loading]);
+  }, [user, loading, auth.currentUser]);
+
+  const completeDetailsStatus = useSelector(
+    (state) => state.completeDetailsStatus.completeDetailsStatus
+  );
+
+  useEffect(() => {
+    console.log("currentUser", auth.currentUser);
+    if (auth.currentUser) {
+      if (completeDetailsStatus == true) {
+        navigate("/home");
+      } else if (auth.currentUser == false) {
+        navigate("/completedetails");
+      }
+    }
+  }, [completeDetailsStatus]);
 
   return (
     <div>

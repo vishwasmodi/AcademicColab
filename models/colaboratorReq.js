@@ -2,12 +2,10 @@ const mongoose = require("mongoose");
 
 const colaboratorReqSchema = new mongoose.Schema({
   senderId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
   },
   receiverId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    type: String,
   },
   projectId: {
     type: mongoose.Schema.Types.ObjectId,

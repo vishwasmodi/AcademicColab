@@ -16,35 +16,27 @@ const projectSchema = new mongoose.Schema(
       type: Array,
     },
     user: {
-      type: mongoose.Schema.Types.ObjectID,
-      ref: User,
+      type: String,
     },
     userName: {
       type: String,
     },
     colaborators: [
       {
-        type: mongoose.Schema.Types.ObjectID,
-        ref: "User",
+        type: String,
       },
     ],
     colaboratorsDetails: [
       {
         name: String,
         username: String,
-        userId: {
-          type: mongoose.Schema.Types.ObjectID,
-          ref: "User",
-        },
+        userId: String,
       },
     ],
     comments: [
       {
         comment: String,
-        userId: {
-          type: mongoose.Schema.Types.ObjectID,
-          ref: "User",
-        },
+        userId: String,
         userName: String,
         commentTime: Date,
       },
@@ -59,8 +51,7 @@ const projectSchema = new mongoose.Schema(
     },
     requests: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        type: String,
       },
     ],
     filePath: {

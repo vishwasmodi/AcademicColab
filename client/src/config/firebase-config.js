@@ -78,7 +78,7 @@ const sendPasswordReset = async (email) => {
   }
 };
 
-const logout = () => {
+const logoutFirebase = () => {
   signOut(auth);
 };
 
@@ -88,5 +88,5 @@ export {
   logInWithEmailAndPassword,
   registerWithEmailAndPassword,
   sendPasswordReset,
-  logout,
+  logoutFirebase,
 };

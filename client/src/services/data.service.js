@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 let API_URL = "/api/";
 if (process.env.REACT_APP_ENV === "dev")
@@ -13,7 +14,7 @@ const addproject = async (name, description) => {
     },
     {
       headers: {
-        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+        "x-auth-token": localStorage.getItem("user"),
       },
     }
   );
@@ -39,7 +40,7 @@ const joinproject = async (id) => {
     },
     {
       headers: {
-        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+        "x-auth-token": localStorage.getItem("user"),
       },
     }
   );
@@ -48,7 +49,7 @@ const joinproject = async (id) => {
 const getcolabreqs = async () => {
   return axios.get(API_URL + "colaboratorsReq", {
     headers: {
-      "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+      "x-auth-token": localStorage.getItem("user"),
     },
   });
 };
@@ -61,7 +62,7 @@ const respondtoreq = async (status, reqId) => {
     },
     {
       headers: {
-        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+        "x-auth-token": localStorage.getItem("user"),
       },
     }
   );
@@ -79,7 +80,32 @@ const addComment = async (comment, projectId) => {
     },
     {
       headers: {
-        "x-auth-token": JSON.parse(localStorage.getItem("user")).token,
+        "x-auth-token": localStorage.getItem("user"),
+      },
+    }
+  );
+};
+
+const completeDetailsStatus = async () => {
+  return axios.get(API_URL + "users/completeDetails", {
+    headers: {
+      "x-auth-token": localStorage.getItem("user"),
+    },
+  });
+};
+
+const completeDetails = async (username, googleScholarId, bio, institute) => {
+  return axios.post(
+    API_URL + "users/completeDetails",
+    {
+      username,
+      googleScholarId,
+      bio,
+      institute,
+    },
+    {
+      headers: {
+        "x-auth-token": localStorage.getItem("user"),
       },
     }
   );
@@ -94,4 +120,6 @@ export default {
   respondtoreq,
   getprofile,
   addComment,
+  completeDetailsStatus,
+  completeDetails,
 };

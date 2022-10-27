@@ -88,4 +88,17 @@ router.delete("/:id", auth, async (req, res) => {
   res.send(project);
 });
 
+router.get("/search/:text", async (req, res) => {
+  const projects = await Project.find();
+  const filteredProjects = projects.filter(
+    (project) =>
+      project.name.toLowerCase().includes(req.params.text.toLowerCase()) ||
+      project.description
+        .toLowerCase()
+        .includes(req.params.text.toLowerCase()) ||
+      project.userName.toLowerCase().includes(req.params.text.toLowerCase())
+  );
+  return filteredProjects;
+});
+
 module.exports = router;

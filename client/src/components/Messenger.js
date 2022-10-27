@@ -4,13 +4,15 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import Message from "../components/Message";
 import group from "../static/grp.jpg";
+import { getAuth } from "firebase/auth";
 
 const Messenger = () => {
+  const auth = getAuth();
+  const user = auth.currentUser;
   const [chatBox, setChatBox] = useState(false);
   const [currentChat, setCurrentChat] = useState("");
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
-  const { isLoggedIn, user } = useSelector((state) => state.auth);
   const { projects } = useSelector((state) => state.getprojects);
   const socket = useRef();
   const scrollRef = useRef();
@@ -21,23 +23,23 @@ const Messenger = () => {
     API_URL1 = process.env.REACT_APP_API_PREFIX;
     API_URL = process.env.REACT_APP_API_PREFIX + API_URL;
   }
-  useEffect(() => {
-    socket.current = io(API_URL1);
-    if (user) {
-      socket.current.on("getMessage", (data) => {
-        setMessages((prev) => {
-          return [
-            ...prev,
-            {
-              senderId: data.senderId,
-              text: data.text,
-              createdAt: Date.now(),
-            },
-          ];
-        });
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   socket.current = io(API_URL1);
+  //   if (user) {
+  //     socket.current.on("getMessage", (data) => {
+  //       setMessages((prev) => {
+  //         return [
+  //           ...prev,
+  //           {
+  //             senderId: data.senderId,
+  //             text: data.text,
+  //             createdAt: Date.now(),
+  //           },
+  //         ];
+  //       });
+  //     });
+  //   }
+  // }, []);
 
   const handleJoinUser = () => {
     if (user) {
@@ -102,7 +104,7 @@ const Messenger = () => {
       {!chatBox ? (
         <div class="flex h-full relative ">
           <div class="bg-blue-500 w-px "></div>
-          {isLoggedIn ? (
+          {user ? (
             <div class="fixed">
               <div class="ml-20 text-2xl text-purple-700 mb-4 ">
                 Chat with your teams!{" "}

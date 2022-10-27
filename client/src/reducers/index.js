@@ -9,6 +9,8 @@ import {
   getcolabreqs,
   getprofile,
   addComment,
+  completeDetailsStatus,
+  completeDetails,
 } from "./data";
 
 export default combineReducers({
@@ -21,4 +23,6 @@ export default combineReducers({
   getcolabreqs,
   getprofile,
   addComment,
+  completeDetailsStatus,
+  completeDetails,
 });

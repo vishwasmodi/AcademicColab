@@ -6,26 +6,39 @@ const auth = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/", auth, async (req, res) => {
+  console.log("colab req", req.user._id);
+
   const requests = await ColaboratorReq.find({
     receiverId: req.user._id,
   });
 
+  console.log("hello", requests);
   res.send(requests);
 });
 
 // Send request for colaboration
 router.post("/", auth, async (req, res) => {
   const user = await User.findById(req.user._id);
-  if (!user) res.status(400).send("Wrong user");
+  if (!user) {
+    res.status(400).send("Wrong user");
+    return;
+  }
+
   const project = await Project.findById(req.body.projectId);
-  console.log(project);
-  if (project.colaborators.find((c) => c.toString() === user._id))
+
+  if (project.colaborators.find((c) => c.toString() === user._id)) {
     res.status(400).send("User is already colaborator");
+    return;
+  }
+
   const requested = await ColaboratorReq.find({
     senderId: req.user._id,
     projectId: req.body.projectId,
   });
-  if (requested) res.status(400).send("Already requested");
+  if (requested.length > 0) {
+    res.status(400).send("Already requested");
+    return;
+  }
   // if (project.colaboratorsLimit >= project.colaborators.length())
   //   res.send("Max number of colaborators for this project reached");
 
@@ -37,17 +50,18 @@ router.post("/", auth, async (req, res) => {
       if (err) return next(err);
     },
   }).exec();
-
   let request = new ColaboratorReq({
     senderId: req.user._id,
-    receiverId: project.user._id,
+    receiverId: project.user,
     projectId: req.body.projectId,
     senderName: user.name,
     projectName: project.name,
     status: false,
   });
-  request = await request.save();
+
+  await request.save();
   res.send(request);
+  return;
 });
 
 // Respond to request

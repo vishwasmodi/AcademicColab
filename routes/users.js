@@ -78,4 +78,29 @@ const googleAuth = async (token) => {
   const userId = sub;
   return;
 };
+
+router.get("/completeDetails", auth, async (req, res) => {
+  if (!req.user) return res.status(400).send("User not found");
+  const user = await User.findById(req.user._id);
+  console.log(user);
+  console.log("here in backend");
+  if (user.completeDetailsStatus) {
+    res.send(true);
+  } else {
+    res.send(false);
+  }
+});
+
+router.post("/completeDetails", auth, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  user.completeDetailsStatus = true;
+  user.username = req.body.username;
+  user.googleScholarId = req.body.googleScholarId;
+  user.institute = req.body.institute;
+  user.bio = req.body.bio;
+  console.log(user);
+  await user.save();
+  res.send(user);
+});
+
 module.exports = router;

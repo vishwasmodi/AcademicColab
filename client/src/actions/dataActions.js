@@ -73,6 +73,7 @@ const joinProject = (id) => (dispatch) => {
 const getColabReqs = () => (dispatch) => {
   return DataServices.getcolabreqs().then(
     (response) => {
+      console.log(response);
       dispatch({
         type: actions.GET_COLAB_REQ_SUCCESS,
         payload: response.data,
@@ -134,6 +135,42 @@ const addComment = (comment, projectId) => (dispatch) => {
   );
 };
 
+const completeDetailsStatus = () => (dispatch) => {
+  return DataServices.completeDetailsStatus().then(
+    (response) => {
+      dispatch({
+        type: actions.COMPLETE_DETAILS_STATUS_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const completeDetails =
+  (username, googleScholarId, institute, bio) => (dispatch) => {
+    return DataServices.completeDetails(
+      username,
+      googleScholarId,
+      institute,
+      bio
+    ).then(
+      (response) => {
+        dispatch({
+          type: actions.COMPLETE_DETAILS_SUCCESS,
+          payload: response.data,
+        });
+        return Promise.resolve();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
+
 export default {
   addProject,
   getProjects,
@@ -143,4 +180,6 @@ export default {
   respondToReq,
   getProfile,
   addComment,
+  completeDetailsStatus,
+  completeDetails,
 };

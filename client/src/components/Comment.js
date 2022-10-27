@@ -1,6 +1,6 @@
 const Comment = ({ commentBody, commentUserName, commentTime }) => {
   return (
-    <div>
+    <div class="mx-4">
       <div class="flex">
         <div class="text-sm font-semibold text-gray-800">{commentUserName}</div>
         &nbsp;&nbsp;

@@ -69,38 +69,7 @@ export const login = (username, password) => (dispatch) => {
   );
 };
 
-export const completedetails = (username) => (dispatch) => {
-  return AuthService.completedetails(username).then(
-    (data) => {
-      const message = "Success!";
-      dispatch({
-        type: actions.COMPLETE_DETAILS_SUCCESS,
-        payload: { user: data },
-      });
-      dispatch({
-        type: actions.SET_MESSAGE,
-        payload: message,
-      });
-      return Promise.resolve();
-    },
-    (error) => {
-      const message = error.response.data;
-
-      dispatch({
-        type: actions.COMPLETE_DETAILS_FAIL,
-      });
-      dispatch({
-        type: actions.SET_MESSAGE,
-        payload: message,
-      });
-      return Promise.reject();
-    }
-  );
-};
-
 export const logout = () => (dispatch) => {
   AuthService.logout();
-  dispatch({
-    type: actions.LOGOUT,
-  });
+  return Promise.resolve();
 };

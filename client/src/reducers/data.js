@@ -44,6 +44,15 @@ const initialComment = {
   newComment: {},
 };
 
+const completeDetailsGet = {
+  completeDetailsStatus: false,
+};
+
+const completeDetailsPost = {
+  details: {},
+  loading: false,
+};
+
 export function addproject(state = initialStateAdd, action) {
   const { type, payload } = action;
   switch (type) {
@@ -153,6 +162,33 @@ export function addComment(state = initialComment, action) {
       return {
         ...state,
         newComment: payload,
+      };
+    default:
+      return state;
+  }
+}
+
+export function completeDetailsStatus(state = completeDetailsGet, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case actions.COMPLETE_DETAILS_STATUS_SUCCESS:
+      return {
+        ...state,
+        completeDetailsStatus: payload,
+      };
+    default:
+      return state;
+  }
+}
+
+export function completeDetails(state = completeDetailsPost, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case actions.COMPLETE_DETAILS_SUCCESS:
+      return {
+        ...state,
+        details: payload,
+        loading: false,
       };
     default:
       return state;
