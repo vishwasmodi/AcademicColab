@@ -82,12 +82,23 @@ const googleAuth = async (token) => {
 router.get("/completeDetails", auth, async (req, res) => {
   if (!req.user) return res.status(400).send("User not found");
   const user = await User.findById(req.user._id);
+  if (!user) {
+    res.status(400).send("User not found");
+    return;
+  }
   console.log(user);
   console.log("here in backend");
+
   if (user.completeDetailsStatus) {
-    res.send(true);
+    const ret = {
+      completeDetailsStatus: true,
+    };
+    res.send(ret);
   } else {
-    res.send(false);
+    const ret = {
+      completeDetailsStatus: false,
+    };
+    res.send(ret);
   }
 });
 

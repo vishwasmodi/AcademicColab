@@ -111,6 +111,10 @@ const completeDetails = async (username, googleScholarId, bio, institute) => {
   );
 };
 
+const searchText = async (searchText) => {
+  return axios.get(API_URL + "projects/search/" + searchText);
+};
+
 export default {
   addproject,
   getprojects,
@@ -122,4 +126,5 @@ export default {
   addComment,
   completeDetailsStatus,
   completeDetails,
+  searchText,
 };

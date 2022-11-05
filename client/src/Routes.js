@@ -6,10 +6,9 @@ import {
 } from "react-router-dom";
 
 // import all the pages here
-import Home from "./pages/Home";
-import AddProjectPage from "./pages/AddProjectPage";
-import Nav from "./components/Nav";
-import ProfilePage from "./pages/ProfilePage";
+import AddProject from "./components/AddProject";
+import Feed from "./components/Feed";
+import Profile from "./components/Profile";
 import CompleteDetails from "./components/CompleteDetails";
 import ProjectDescription from "./components/ProjectDescription";
 import Feedback from "./components/Feedback";
@@ -23,14 +22,14 @@ const Routes = () => {
       <Switch>
         {/* <Route exact path='/route' component={Page} /> for all the pages */}
         <Route exact path="/" element={<Login />} />
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/home" element={<Feed />} />
         <Route exact path="/completedetails" element={<CompleteDetails />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route exact path="/forgotpassword" element={<ForgotPassword />} />
-        <Route exact path="/addproject" element={<AddProjectPage />} />
-        <Route path="/profile/:username" element={<ProfilePage />} />
+        <Route exact path="/addproject" element={<AddProject />} />
+        <Route path="/profile/:username" element={<Profile />} />
         <Route path="/projects/:projectId" element={<ProjectDescription />} />
-        <Route path="/feedback" element={<Feedback />} />
+        <Route exact path="/feedback" element={<Feedback />} />
       </Switch>
     </Router>
   );

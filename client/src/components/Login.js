@@ -29,6 +29,10 @@ const Login = () => {
     setPassword(password);
   };
 
+  const completeDetailsStatus = useSelector(
+    (state) => state.completeDetailsStatus.completeDetailsStatus
+  );
+
   useEffect(() => {
     // if (loading) {
     //   // maybe trigger a loading screen
@@ -37,27 +41,24 @@ const Login = () => {
     if (user) {
       user.getIdToken().then((token) => {
         console.log(token);
-        localStorage.setItem("user", token);
         dispatch(dataActions.completeDetailsStatus());
-        setDetailsStatus(true);
+        localStorage.setItem("user", token);
+        setDetailsStatus(!detailsStatus);
       });
     }
-  }, [user, loading, auth.currentUser]);
-
-  const completeDetailsStatus = useSelector(
-    (state) => state.completeDetailsStatus.completeDetailsStatus
-  );
+  }, [user, loading]);
 
   useEffect(() => {
     console.log("currentUser", auth.currentUser);
     if (auth.currentUser) {
+      console.log(completeDetailsStatus);
       if (completeDetailsStatus == true) {
         navigate("/home");
-      } else if (auth.currentUser == false) {
+      } else if (completeDetailsStatus == false) {
         navigate("/completedetails");
       }
     }
-  }, [completeDetailsStatus]);
+  }, [detailsStatus]);
 
   return (
     <div>

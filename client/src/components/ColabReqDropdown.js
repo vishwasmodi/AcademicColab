@@ -9,7 +9,6 @@ const ColabReqDropdown = () => {
   const requests = useSelector((state) => state.getcolabreqs.colabReqs);
 
   const setShowColabDropdown = (e) => {
-    console.log(requests);
     e.preventDefault();
     setLoading(true);
     if (!colabDropdown)

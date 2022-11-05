@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import dataActions from "../actions/dataActions";
 import { useNavigate } from "react-router-dom";
+import ProjectDescriptionNav from "./ProjectDescriptionNav";
 
 const AddProject = (props) => {
   const [name, setName] = useState("");
@@ -31,18 +32,14 @@ const AddProject = (props) => {
   };
 
   return (
-    <div>
-      <div class="flex justify-end mr-12 mt-4">
-        <button
-          onClick={() => navigate("/home", { replace: true })}
-          class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        >
-          Back
-        </button>
+    <div class="h-screen">
+      <div class="sticky top-0">
+        <ProjectDescriptionNav />
       </div>
-      <div class="flex ml-24 mt-12 ">
+
+      <div class="flex ml-24 mt-12 bg-white ">
         <form
-          class="justify-start bg-gray-100 shadow-md rounded pl-10 pr-60 pt-6 pb-8 w-3/5"
+          class="justify-start shadow-md rounded pl-10 pr-60 pt-6 pb-8 w-3/5"
           onSubmit={handleAddProject}
         >
           <div>
@@ -54,7 +51,7 @@ const AddProject = (props) => {
             </label>
             <input
               type="text"
-              class="shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
               value={name}
               onChange={onChangeName}
             />
@@ -69,7 +66,7 @@ const AddProject = (props) => {
             </label>
             <input
               type="text"
-              class="shadow appearance-none border rounded w-full py-28 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow whitespace-pre-wrap appearance-none border rounded w-full py-28 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={description}
               onChange={onChangeDescription}
             />

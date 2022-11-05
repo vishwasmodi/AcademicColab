@@ -89,7 +89,13 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 router.get("/search/:text", async (req, res) => {
+  console.log("hii", req.params.text);
   const projects = await Project.find();
+  if (req.params.text === "all") {
+    res.send(projects);
+    return;
+  }
+
   const filteredProjects = projects.filter(
     (project) =>
       project.name.toLowerCase().includes(req.params.text.toLowerCase()) ||
@@ -98,7 +104,7 @@ router.get("/search/:text", async (req, res) => {
         .includes(req.params.text.toLowerCase()) ||
       project.userName.toLowerCase().includes(req.params.text.toLowerCase())
   );
-  return filteredProjects;
+  res.send(filteredProjects);
 });
 
 module.exports = router;

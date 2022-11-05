@@ -36,6 +36,21 @@ const getProjects = () => (dispatch) => {
   );
 };
 
+const searchText = (searchText) => (dispatch) => {
+  return DataServices.searchText(searchText).then(
+    (response) => {
+      dispatch({
+        type: actions.GET_PROJECTS_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
 const getProject = (id) => (dispatch) => {
   return DataServices.getproject(id).then(
     (response) => {
@@ -174,6 +189,7 @@ const completeDetails =
 export default {
   addProject,
   getProjects,
+  searchText,
   getProject,
   joinProject,
   getColabReqs,

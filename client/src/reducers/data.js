@@ -53,6 +53,8 @@ const completeDetailsPost = {
   loading: false,
 };
 
+const searchText = "";
+
 export function addproject(state = initialStateAdd, action) {
   const { type, payload } = action;
   switch (type) {
