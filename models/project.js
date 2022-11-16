@@ -29,7 +29,6 @@ const projectSchema = new mongoose.Schema(
     colaboratorsDetails: [
       {
         name: String,
-        username: String,
         userId: String,
       },
     ],

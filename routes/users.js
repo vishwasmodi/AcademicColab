@@ -83,11 +83,11 @@ router.get("/completeDetails", auth, async (req, res) => {
   if (!req.user) return res.status(400).send("User not found");
   const user = await User.findById(req.user._id);
   if (!user) {
-    res.status(400).send("User not found");
+    res.send({
+      completeDetailsStatus: false,
+    });
     return;
   }
-  console.log(user);
-  console.log("here in backend");
 
   if (user.completeDetailsStatus) {
     const ret = {

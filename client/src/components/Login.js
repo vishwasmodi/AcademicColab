@@ -29,36 +29,25 @@ const Login = () => {
     setPassword(password);
   };
 
-  const completeDetailsStatus = useSelector(
-    (state) => state.completeDetailsStatus.completeDetailsStatus
-  );
+  const completeDetailsStatus = useSelector((state) => {
+    console.log(state.completeDetailsStatus);
+    return state.completeDetailsStatus.completeDetailsStatus;
+  });
 
   useEffect(() => {
-    // if (loading) {
-    //   // maybe trigger a loading screen
-    //   return;
-    // }
-    if (user) {
+    if (!loading && !error && user) {
       user.getIdToken().then((token) => {
-        console.log(token);
-        dispatch(dataActions.completeDetailsStatus());
         localStorage.setItem("user", token);
-        setDetailsStatus(!detailsStatus);
+        dispatch(dataActions.completeDetailsStatus()).then((data) => {
+          if (data == true) {
+            navigate("/home");
+          } else if (data == false) {
+            navigate("/completedetails");
+          }
+        });
       });
     }
-  }, [user, loading]);
-
-  useEffect(() => {
-    console.log("currentUser", auth.currentUser);
-    if (auth.currentUser) {
-      console.log(completeDetailsStatus);
-      if (completeDetailsStatus == true) {
-        navigate("/home");
-      } else if (completeDetailsStatus == false) {
-        navigate("/completedetails");
-      }
-    }
-  }, [detailsStatus]);
+  }, [user, loading, completeDetailsStatus]);
 
   return (
     <div>

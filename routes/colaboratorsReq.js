@@ -71,18 +71,21 @@ router.post("/:id", auth, async (req, res) => {
   const sender = await User.findById(request.senderId);
   if (!request || req.user._id !== request.receiverId.toString())
     res.status(400).send("Wrong request id");
-  if (req.body.status === "Accept") {
+
+  console.log("request", request, sender, req.body.status);
+  if (req.body.status === "Confirm") {
     const colaboratorsDetails = {
       name: sender.name,
-      username: sender.username,
-      userId: sender._id,
+      userId: sender._id.toString(),
     };
+    console.log("colaboratorsDetails", colaboratorsDetails);
     await Project.findByIdAndUpdate(request.projectId.toString(), {
       $push: {
-        colaborators: sender._id,
+        colaborators: sender._id.toString(),
         colaboratorsDetails: colaboratorsDetails,
       },
       function(err) {
+        console.log(err);
         if (err) return next(err);
       },
     }).exec();

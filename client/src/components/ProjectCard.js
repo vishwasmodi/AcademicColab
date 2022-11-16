@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import dataActions from "../actions/dataActions";
 import Comment from "./Comment";
 import sendIcon from "../static/send.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../config/firebase-config";
 
 const ProjectCard = ({
   id,
@@ -15,7 +17,6 @@ const ProjectCard = ({
   requests,
   colaboratorsDetails,
 }) => {
-  const [loading, setLoading] = useState(false);
   const [requested, setRequested] = useState(null);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [expand, setExpand] = useState(false);
@@ -23,7 +24,7 @@ const ProjectCard = ({
   const [allComments, setAllComments] = useState(comments);
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
+  const [user, loading, error] = useAuthState(auth);
   let navigate = useNavigate();
 
   const handleExpandComments = () => {
@@ -33,27 +34,31 @@ const ProjectCard = ({
   const handleComment = () => {
     if (newComment.length > 0) {
       dispatch(dataActions.addComment(newComment, id));
-
       setAllComments([
         ...allComments,
         {
           comment: newComment,
-          userId: user._id,
-          userName: user.username,
-          commentTime: new Date(),
+          userId: user.uid,
+          userName: user.displayName,
+          commentTime: new Date().toLocaleString(),
         },
       ]);
     }
   };
 
+  const alreadyContributor = () => {
+    const res = colaboratorsDetails.find((colaborator) => {
+      return colaborator.userId === user.uid;
+    });
+    return res || requested;
+  };
+
   const handleJoinProject = (e) => {
     e.preventDefault();
-    setLoading(true);
     if (!isLoggedIn) {
       navigate(`/register`);
-      setLoading(false);
     } else {
-      dispatch(dataActions.joinProject(id)).then(setLoading(false));
+      dispatch(dataActions.joinProject(id));
       setRequested(true);
     }
   };
@@ -64,11 +69,11 @@ const ProjectCard = ({
         <div class="text-[rgb(26,14,171)] text-xl">
           <Link to={`/projects/${id}`}>{name}</Link>
         </div>
-        <div>
+        <div class="flex">
           {colaboratorsDetails.map((colaborator) => {
             return (
               <div class="text-[rgb(119,119,119)] text-sm">
-                <Link to={`/profile/${colaborator.username}`}>
+                <Link to={`/profile/${colaborator.userId}`}>
                   {colaborator.name},&nbsp;&nbsp;
                 </Link>
               </div>
@@ -82,21 +87,23 @@ const ProjectCard = ({
           Link:
           <Link to={`${link}`}> {link}</Link>{" "}
         </div>
-        <div class="mr-6">
-          <button
-            onClick={handleJoinProject}
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            disabled={loading}
-          >
-            <span>Join Project</span>
-            {loading === true ? (
-              <svg
-                class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
-                viewBox="0 0 24 24"
-              ></svg>
-            ) : null}
-          </button>
-        </div>
+        {loading || alreadyContributor() ? null : (
+          <div class="mr-6">
+            <button
+              onClick={handleJoinProject}
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              disabled={loading}
+            >
+              <span>Join Project</span>
+              {loading === true ? (
+                <svg
+                  class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
+                  viewBox="0 0 24 24"
+                ></svg>
+              ) : null}
+            </button>
+          </div>
+        )}
       </div>
 
       <div class="flex flex-row mt-2 mx-4 w-full text-gray-500 ">

@@ -120,8 +120,8 @@ const respondToReq = (status, reqId) => (dispatch) => {
   );
 };
 
-const getProfile = (username) => (dispatch) => {
-  return DataServices.getprofile(username).then(
+const getProfile = (userId) => (dispatch) => {
+  return DataServices.getprofile(userId).then(
     (response) => {
       dispatch({
         type: actions.GET_PROFILE_SUCCESS,
@@ -157,7 +157,8 @@ const completeDetailsStatus = () => (dispatch) => {
         type: actions.COMPLETE_DETAILS_STATUS_SUCCESS,
         payload: response.data,
       });
-      return Promise.resolve();
+      Promise.resolve();
+      return response.data.completeDetailsStatus;
     },
     (error) => {
       console.log(error);
@@ -166,12 +167,12 @@ const completeDetailsStatus = () => (dispatch) => {
 };
 
 const completeDetails =
-  (username, googleScholarId, institute, bio) => (dispatch) => {
+  (username, googleScholarId, bio, institute) => (dispatch) => {
     return DataServices.completeDetails(
       username,
       googleScholarId,
-      institute,
-      bio
+      bio,
+      institute
     ).then(
       (response) => {
         dispatch({

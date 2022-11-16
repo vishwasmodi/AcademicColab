@@ -9,13 +9,15 @@ import { logout } from "../actions/auth";
 import { auth, logoutFirebase } from "../config/firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import LogoutLogo from "../static/logout.svg";
+import { signOut } from "firebase/auth";
+
 const Nav = () => {
   const [user, loading, error] = useAuthState(auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLogout = (e) => {
     e.preventDefault();
+    signOut(auth);
     logoutFirebase();
     dispatch(logout()).then(() => {
       navigate("/");
@@ -33,13 +35,16 @@ const Nav = () => {
       <Search />
       <div class="flex  flex-row mr-10">
         <ColabReqDropdown />
-        {/* <Link to={`/profile/${user.username}`} class="flex">
-            <img class="max-h-10 ml-20" src={avatar} alt="" />
-            <h2 class="flex text-lg ml-2 mr-4 mt-2 text-white">{user.name}</h2>
-          </Link> */}
-        <button class=" h-5 w-6 mt-3 ml-4" onClick={handleLogout}>
+
+        <button class=" h-3 w-6 mt-4 ml-4" onClick={handleLogout}>
           <img src={LogoutLogo} />
         </button>
+        {user ? (
+          <Link to={`/profile/${user.uid}`} class="flex mt-3 ml-4">
+            <img class="max-h-8" src={avatar} alt="" />
+            <h2 class="mt-1.5 ml-2 text-gray-700 ">{user.displayName}</h2>
+          </Link>
+        ) : null}
       </div>
     </div>
   );

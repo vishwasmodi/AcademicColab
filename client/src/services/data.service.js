@@ -68,8 +68,8 @@ const respondtoreq = async (status, reqId) => {
   );
 };
 
-const getprofile = async (username) => {
-  return axios.get(API_URL + "profile/" + username);
+const getprofile = async (userId) => {
+  return axios.get(API_URL + "profile/" + userId);
 };
 
 const addComment = async (comment, projectId) => {
@@ -87,11 +87,12 @@ const addComment = async (comment, projectId) => {
 };
 
 const completeDetailsStatus = async () => {
-  return axios.get(API_URL + "users/completeDetails", {
+  const res = await axios.get(API_URL + "users/completeDetails", {
     headers: {
       "x-auth-token": localStorage.getItem("user"),
     },
   });
+  return res;
 };
 
 const completeDetails = async (username, googleScholarId, bio, institute) => {

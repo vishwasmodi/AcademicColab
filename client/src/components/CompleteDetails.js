@@ -36,7 +36,7 @@ const CompleteDetails = () => {
     e.preventDefault();
     setLoading(true);
     dispatch(
-      dataActions.completeDetails(username, googleScholarId, institute, bio)
+      dataActions.completeDetails(username, googleScholarId, bio, institute)
     )
       .then(() => {
         navigate("/home");

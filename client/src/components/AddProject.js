@@ -37,9 +37,9 @@ const AddProject = (props) => {
         <ProjectDescriptionNav />
       </div>
 
-      <div class="flex ml-24 mt-12 bg-white ">
+      <div class="flex ml-24 mt-12 ">
         <form
-          class="justify-start shadow-md rounded pl-10 pr-60 pt-6 pb-8 w-3/5"
+          class="justify-start shadow-md rounded pl-10 pr-24 pt-6 pb-8 w-3/5  bg-white"
           onSubmit={handleAddProject}
         >
           <div>
@@ -66,7 +66,7 @@ const AddProject = (props) => {
             </label>
             <input
               type="text"
-              class="shadow whitespace-pre-wrap appearance-none border rounded w-full py-28 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow whitespace-pre-wrap appearance-none border rounded w-full h-24 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={description}
               onChange={onChangeDescription}
             />

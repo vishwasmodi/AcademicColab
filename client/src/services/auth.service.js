@@ -35,16 +35,6 @@ const login = async (username, password) => {
     });
 };
 
-const completedetails = async (username) => {
-  return axios
-    .post(API_URL + "completedetails", {
-      username,
-    })
-    .then((response) => {
-      return response.data;
-    });
-};
-
 const logout = () => {
   localStorage.removeItem("user");
   // localStorage.removeItem("currentUser");
