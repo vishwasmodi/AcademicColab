@@ -15,6 +15,7 @@ import Feedback from "./components/Feedback";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgotPassword";
+import EditProfile from "./components/EditProfile";
 
 const Routes = () => {
   return (
@@ -30,6 +31,7 @@ const Routes = () => {
         <Route path="/profile/:username" element={<Profile />} />
         <Route path="/projects/:projectId" element={<ProjectDescription />} />
         <Route exact path="/feedback" element={<Feedback />} />
+        <Route exact path="/editprofile" element={<EditProfile />} />
       </Switch>
     </Router>
   );

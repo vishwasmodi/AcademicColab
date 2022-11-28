@@ -15,9 +15,9 @@ const Nav = () => {
   const [user, loading, error] = useAuthState(auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleLogout = (e) => {
+  const handleLogout = async (e) => {
     e.preventDefault();
-    signOut(auth);
+    await signOut(auth);
     logoutFirebase();
     dispatch(logout()).then(() => {
       navigate("/");

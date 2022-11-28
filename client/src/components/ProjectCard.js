@@ -47,6 +47,7 @@ const ProjectCard = ({
   };
 
   const alreadyContributor = () => {
+    if (!user) return false;
     const res = colaboratorsDetails.find((colaborator) => {
       return colaborator.userId === user.uid;
     });
@@ -55,12 +56,9 @@ const ProjectCard = ({
 
   const handleJoinProject = (e) => {
     e.preventDefault();
-    if (!isLoggedIn) {
-      navigate(`/register`);
-    } else {
-      dispatch(dataActions.joinProject(id));
+    dispatch(dataActions.joinProject(id)).then(() => {
       setRequested(true);
-    }
+    });
   };
 
   return (

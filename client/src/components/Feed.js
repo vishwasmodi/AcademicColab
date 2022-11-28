@@ -1,16 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProjectCard from "./ProjectCard";
 import { Link } from "react-router-dom";
 import dataActions from "../actions/dataActions";
 import plus from "../static/plus.png";
-import Nav from "../components/Nav";
+import Nav from "./Nav";
 import Sidebar from "../components/Sidebar";
+import { CometChat } from "@cometchat-pro/chat";
+import Loader from "./Loader";
 
 const Feed = () => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
-    dispatch(dataActions.getProjects());
+    setLoading(true);
+    dispatch(dataActions.getProjects()).then(() => {
+      setLoading(false);
+    });
   }, []);
   const projects = useSelector((state) => state.getprojects.projects);
 
@@ -35,20 +42,26 @@ const Feed = () => {
             </Link>
           </div>
           <div class="w-full">
-            {projects.map((project) => {
-              return (
-                <ProjectCard
-                  id={project._id}
-                  name={project.name}
-                  description={project.description}
-                  link={project.githubRepo}
-                  comments={project.comments}
-                  userName={project.userName}
-                  requests={project.requests}
-                  colaboratorsDetails={project.colaboratorsDetails}
-                />
-              );
-            })}
+            {loading ? (
+              <Loader />
+            ) : (
+              <div>
+                {projects.map((project) => {
+                  return (
+                    <ProjectCard
+                      id={project._id}
+                      name={project.name}
+                      description={project.description}
+                      link={project.githubRepo}
+                      comments={project.comments}
+                      userName={project.userName}
+                      requests={project.requests}
+                      colaboratorsDetails={project.colaboratorsDetails}
+                    />
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>
