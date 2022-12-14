@@ -10,6 +10,7 @@ import {
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDispatch, useSelector } from "react-redux";
 import dataActions from "../actions/dataActions";
+import { cometChatLogin, cometChatSignup } from "../config/comet-chat";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -40,9 +41,13 @@ const Login = () => {
         localStorage.setItem("user", token);
         dispatch(dataActions.completeDetailsStatus()).then((data) => {
           if (data == true) {
-            navigate("/home");
+            cometChatLogin(user).then(() => {
+              navigate("/home");
+            });
           } else if (data == false) {
-            navigate("/completedetails");
+            cometChatSignup(user).then(() => {
+              navigate("/completedetails");
+            });
           }
         });
       });

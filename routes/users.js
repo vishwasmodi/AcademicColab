@@ -63,22 +63,6 @@ router.get("/me", auth, async (req, res) => {
   res.send(user);
 });
 
-// For Google login
-const googleAuth = async (token) => {
-  const ticket = await client.verifyIdToken({
-    idToken: token,
-    audience: process.env.GOOGLE_CLIENT_ID,
-  });
-
-  const payload = ticket.getPayload();
-
-  console.log(`User ${payload.name} with email ${payload.email} has logged in`);
-
-  const { name, email, picture, sub } = payload;
-  const userId = sub;
-  return;
-};
-
 router.get("/completeDetails", auth, async (req, res) => {
   if (!req.user) return res.status(400).send("User not found");
   const user = await User.findById(req.user._id);
@@ -104,11 +88,16 @@ router.get("/completeDetails", auth, async (req, res) => {
 
 router.post("/completeDetails", auth, async (req, res) => {
   const user = await User.findById(req.user._id);
+  if (!user) {
+    res.send("User not found");
+    return;
+  }
   user.completeDetailsStatus = true;
   user.username = req.body.username;
   user.googleScholarId = req.body.googleScholarId;
   user.institute = req.body.institute;
   user.bio = req.body.bio;
+  user.interests = req.body.interests;
   console.log(user);
   await user.save();
   res.send(user);

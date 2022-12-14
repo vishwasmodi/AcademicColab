@@ -1,8 +1,8 @@
 import * as actions from "./types";
 import DataServices from "../services/data.service";
 
-const addProject = (name, description) => (dispatch) => {
-  return DataServices.addproject(name, description).then(
+const addProject = (name, description, interests) => (dispatch) => {
+  return DataServices.addproject(name, description, interests).then(
     (response) => {
       const message = "Success!";
       dispatch({
@@ -38,6 +38,21 @@ const getProjects = () => (dispatch) => {
 
 const searchText = (searchText) => (dispatch) => {
   return DataServices.searchText(searchText).then(
+    (response) => {
+      dispatch({
+        type: actions.GET_PROJECTS_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+};
+
+const filterProjects = (interests) => (dispatch) => {
+  return DataServices.filterProjects(interests).then(
     (response) => {
       dispatch({
         type: actions.GET_PROJECTS_SUCCESS,
@@ -167,12 +182,13 @@ const completeDetailsStatus = () => (dispatch) => {
 };
 
 const completeDetails =
-  (username, googleScholarId, bio, institute) => (dispatch) => {
+  (username, googleScholarId, bio, institute, interests) => (dispatch) => {
     return DataServices.completeDetails(
       username,
       googleScholarId,
       bio,
-      institute
+      institute,
+      interests
     ).then(
       (response) => {
         dispatch({
@@ -191,6 +207,7 @@ export default {
   addProject,
   getProjects,
   searchText,
+  filterProjects,
   getProject,
   joinProject,
   getColabReqs,

@@ -47,13 +47,14 @@ router.post("/", auth, async (req, res) => {
   const user = await User.findById(req.user._id).exec();
   const colaborators = [req.user._id];
   const colaboratorsDetails = [];
-  console.log(user);
   colaboratorsDetails.push({
     name: user.name,
     username: user.username,
     userId: user._id,
   });
-
+  const interests = req.body.interests.map((interest) => interest.name);
+  console.log(interests);
+  console.log(req.body);
   let project = new Project({
     name: req.body.name,
     description: req.body.description,
@@ -62,6 +63,7 @@ router.post("/", auth, async (req, res) => {
     colaborators: colaborators,
     colaboratorsDetails: colaboratorsDetails,
     pdf: req.body.pdf,
+    interests: interests,
   });
   project = await project.save();
   res.send(project);
@@ -103,6 +105,24 @@ router.get("/search/:text", async (req, res) => {
         .toLowerCase()
         .includes(req.params.text.toLowerCase()) ||
       project.userName.toLowerCase().includes(req.params.text.toLowerCase())
+  );
+  res.send(filteredProjects);
+});
+
+router.get("/filter/:interests", async (req, res) => {
+  console.log(req.params.interests);
+  const interests = req.params.interests.split("&");
+  console.log(interests);
+  const projects = await Project.find();
+  if (req.params.interests === "all") {
+    res.send(projects);
+    return;
+  }
+  const filteredProjects = projects.filter((project) =>
+    interests.every((val) => {
+      console.log("val", val, project.interests);
+      return project.interests.includes(val);
+    })
   );
   res.send(filteredProjects);
 });

@@ -15,6 +15,7 @@ const ProjectCard = ({
   comments,
   userName,
   requests,
+  interests,
   colaboratorsDetails,
 }) => {
   const [requested, setRequested] = useState(null);
@@ -80,8 +81,14 @@ const ProjectCard = ({
         </div>
         <p class="text-[rgb(119,119,119)] text-sm">{description}</p>
       </div>
+      <div class="flex text-gray-600 text-sm mx-6">
+        Fields:&nbsp;
+        {interests.map((interest) => {
+          return <div class="text-gray-600 text-sm">{interest},&nbsp;</div>;
+        })}
+      </div>
       <div class="flex justify-between">
-        <div class="text-gray-700 mt-3 text-sm mx-6">
+        <div class="text-gray-600 text-sm mx-6">
           Link:
           <Link to={`${link}`}> {link}</Link>{" "}
         </div>
@@ -104,7 +111,7 @@ const ProjectCard = ({
         )}
       </div>
 
-      <div class="flex flex-row mt-2 mx-4 w-full text-gray-500 ">
+      <div class="flex flex-row mt-2 mx-6 w-full text-gray-500 ">
         <button onClick={handleExpandComments}>View all comments</button>
       </div>
 

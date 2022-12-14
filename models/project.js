@@ -40,6 +40,11 @@ const projectSchema = new mongoose.Schema(
         commentTime: Date,
       },
     ],
+    interests: [
+      {
+        type: String,
+      },
+    ],
     tags: {
       type: [String],
       // required: true,

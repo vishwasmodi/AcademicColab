@@ -16,6 +16,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import ForgotPassword from "./components/ForgotPassword";
 import EditProfile from "./components/EditProfile";
+import Chat from "./components/Chat";
 
 const Routes = () => {
   return (
@@ -32,6 +33,7 @@ const Routes = () => {
         <Route path="/projects/:projectId" element={<ProjectDescription />} />
         <Route exact path="/feedback" element={<Feedback />} />
         <Route exact path="/editprofile" element={<EditProfile />} />
+        <Route exact path="/chat" element={<Chat />} />
       </Switch>
     </Router>
   );

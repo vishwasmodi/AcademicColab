@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.0.0",
+    "dateformat": "^4.0.0",
+    "html-react-parser": "^1.4.5",
+    "twemoji": "^13.0.1",
     "@cometchat-pro/chat": "^3.0.10",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",

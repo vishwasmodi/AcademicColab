@@ -8,6 +8,7 @@ import {
   registerWithEmailAndPassword,
   signInWithGoogle,
 } from "../config/firebase-config";
+import { cometChatSignup } from "../config/comet-chat";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -23,12 +24,15 @@ function Signup() {
 
   useEffect(() => {
     if (loading) return;
-    if (user) navigate("/home");
+    if (user) {
+      cometChatSignup(user);
+      navigate("/home");
+    }
   }, [user, loading]);
 
   const onChangeName = (e) => {
-    const email = e.target.value;
-    setName(email);
+    const name = e.target.value;
+    setName(name);
   };
 
   const onChangeEmail = (e) => {

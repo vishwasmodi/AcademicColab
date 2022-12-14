@@ -15,6 +15,37 @@ const CompleteDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const allInterests = [
+    { name: "Web Development", checked: false },
+    { name: "Android Development", checked: false },
+    { name: "Machine Learning", checked: false },
+    { name: "Data Science", checked: false },
+    { name: "Cyber Security", checked: false },
+    { name: "Artificial Intelligence", checked: false },
+    { name: "Blockchain", checked: false },
+    { name: "Cloud Computing", checked: false },
+    { name: "Internet of Things", checked: false },
+    { name: "Game Development", checked: false },
+  ];
+  // const interests1 = [
+  //   "Web Development",
+  //   "Android Development",
+  //   "AI",
+  //   "ML",
+  //   "NLP",
+  //   "Computer Vision",
+  //   "Data Science",
+  //   "Blockchain",
+  //   "Cyber Security",
+  //   "Cloud Computing",
+  //   "Internet of Things",
+  //   "Embedded Systems",
+  //   "Robotics",
+  //   "Quantum Computing",
+  //   "Game Development",
+  //   "UI/UX",
+  // ];
+
   const onChangeGoogleScholarId = (e) => {
     const googleScholarId = e.target.value;
     setgoogleScholarId(googleScholarId);
@@ -34,9 +65,17 @@ const CompleteDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const interests = allInterests.filter((interest) => interest.checked);
+    console.log(interests);
     setLoading(true);
     dispatch(
-      dataActions.completeDetails(username, googleScholarId, bio, institute)
+      dataActions.completeDetails(
+        username,
+        googleScholarId,
+        bio,
+        institute,
+        interests
+      )
     )
       .then(() => {
         navigate("/home");
@@ -45,6 +84,16 @@ const CompleteDetails = () => {
       .catch(() => {
         setLoading(false);
       });
+  };
+  const handleCheckbox = (e) => {
+    const { name, checked } = e.target;
+    console.log(e.target);
+    console.log(name, checked);
+    allInterests.forEach((interest) => {
+      if (interest.name === name) {
+        interest.checked = checked;
+      }
+    });
   };
 
   return (
@@ -62,8 +111,8 @@ const CompleteDetails = () => {
             }}
           ></div>
           <div className="container mx-auto px-4 h-full">
-            <div className="flex content-center items-center justify-center h-full">
-              <div className="w-full lg:w-4/12 px-4">
+            <div className="flex items-center justify-center h-full">
+              <div className="w-full lg:w-9/12 px-4">
                 <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-gray-200 border-0">
                   <div className="rounded-t mb-0 px-6 py-6">
                     <div className="text-center mb-3">
@@ -74,100 +123,102 @@ const CompleteDetails = () => {
 
                     <hr className="mt-6 border-b-1 border-gray-400" />
                   </div>
-                  <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                    <form>
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Google Scholar Id
-                        </label>
-                        <input
-                          type="text"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder=""
-                          style={{ transition: "all .15s ease" }}
-                          onChange={onChangeGoogleScholarId}
-                        />
-                      </div>
-
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Username
-                        </label>
-                        <input
-                          type="text"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder=""
-                          style={{ transition: "all .15s ease" }}
-                          onChange={onChangeUsername}
-                        />
-                      </div>
-
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Institute
-                        </label>
-                        <input
-                          type="text"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="The LNM Institute of Information Technology"
-                          style={{ transition: "all .15s ease" }}
-                          onChange={onChangeInstitute}
-                        />
-                      </div>
-
-                      <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Bio
-                        </label>
-                        <input
-                          type="text"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="(Optional)"
-                          style={{ transition: "all .15s ease" }}
-                          onChange={onChangeBio}
-                        />
-                      </div>
-                      {/* <div className="relative w-full mb-3">
-                        <label
-                          className="block uppercase text-gray-700 text-xs font-bold mb-2"
-                          htmlFor="grid-password"
-                        >
-                          Password
-                        </label>
-                        <input
-                          type="password"
-                          className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Password"
-                          style={{ transition: "all .15s ease" }}
-                          onChange={onChangePassword}
-                        />
-                      </div> */}
-
-                      <div className="text-center mt-6">
-                        <Link to="/home">
-                          <button
-                            className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                            type="button"
+                  <div class="flex flex-row">
+                    <div className="flex-auto px-4 max-w-md lg:px-10 py-10 pt-0">
+                      <form>
+                        <div className="relative w-full mb-3">
+                          <label className="block uppercase text-gray-700 text-xs font-bold mb-2">
+                            Google Scholar Id
+                          </label>
+                          <input
+                            type="text"
+                            className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder=""
                             style={{ transition: "all .15s ease" }}
-                            onClick={handleSubmit}
-                          >
-                            Get Started!
-                          </button>
-                        </Link>
-                      </div>
-                    </form>
+                            onChange={onChangeGoogleScholarId}
+                          />
+                        </div>
+
+                        <div className="relative w-full mb-3">
+                          <label className="block uppercase text-gray-700 text-xs font-bold mb-2">
+                            Username
+                          </label>
+                          <input
+                            type="text"
+                            className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder=""
+                            style={{ transition: "all .15s ease" }}
+                            onChange={onChangeUsername}
+                          />
+                        </div>
+
+                        <div className="relative w-full mb-3">
+                          <label className="block uppercase text-gray-700 text-xs font-bold mb-2">
+                            Institute
+                          </label>
+                          <input
+                            type="text"
+                            className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="The LNM Institute of Information Technology"
+                            style={{ transition: "all .15s ease" }}
+                            onChange={onChangeInstitute}
+                          />
+                        </div>
+
+                        <div className="relative w-full mb-3">
+                          <label className="block uppercase text-gray-700 text-xs font-bold mb-2">
+                            Bio
+                          </label>
+                          <input
+                            type="text"
+                            className="border-0 px-3 py-3 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="(Optional)"
+                            style={{ transition: "all .15s ease" }}
+                            onChange={onChangeBio}
+                          />
+                        </div>
+
+                        <div className="text-center mt-6">
+                          <Link to="/home">
+                            <button
+                              className="bg-gray-900 text-white active:bg-gray-700 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                              type="button"
+                              style={{ transition: "all .15s ease" }}
+                              onClick={handleSubmit}
+                            >
+                              Get Started!
+                            </button>
+                          </Link>
+                        </div>
+                      </form>
+                    </div>
+
+                    <div>
+                      <label className="block uppercase text-gray-700 text-xs font-bold mb-2">
+                        Interests
+                      </label>
+                      {allInterests.map((interest) => (
+                        <div class="flex justify-left">
+                          <div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                type="checkbox"
+                                value=""
+                                onClick={handleCheckbox}
+                                name={interest.name}
+                              />
+                              <label
+                                class="form-check-label font-semibold text-gray-700 inline-block text-xs"
+                                for="flexCheckDefault"
+                              >
+                                {interest.name}
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

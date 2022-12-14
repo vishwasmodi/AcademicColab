@@ -5,12 +5,13 @@ let API_URL = "/api/";
 if (process.env.REACT_APP_ENV === "dev")
   API_URL = process.env.REACT_APP_API_PREFIX + API_URL;
 
-const addproject = async (name, description) => {
+const addproject = async (name, description, interests) => {
   return axios.post(
     API_URL + "projects",
     {
       name,
       description,
+      interests,
     },
     {
       headers: {
@@ -95,7 +96,13 @@ const completeDetailsStatus = async () => {
   return res;
 };
 
-const completeDetails = async (username, googleScholarId, bio, institute) => {
+const completeDetails = async (
+  username,
+  googleScholarId,
+  bio,
+  institute,
+  interests
+) => {
   return axios.post(
     API_URL + "users/completeDetails",
     {
@@ -103,6 +110,7 @@ const completeDetails = async (username, googleScholarId, bio, institute) => {
       googleScholarId,
       bio,
       institute,
+      interests,
     },
     {
       headers: {
@@ -114,6 +122,16 @@ const completeDetails = async (username, googleScholarId, bio, institute) => {
 
 const searchText = async (searchText) => {
   return axios.get(API_URL + "projects/search/" + searchText);
+};
+
+const filterProjects = async (interests) => {
+  let params = interests.join("&");
+  if (interests.length === 0) params = "all";
+  return axios.get(API_URL + "projects/filter/" + params, {
+    headers: {
+      "x-auth-token": localStorage.getItem("user"),
+    },
+  });
 };
 
 export default {
@@ -128,4 +146,5 @@ export default {
   completeDetailsStatus,
   completeDetails,
   searchText,
+  filterProjects,
 };

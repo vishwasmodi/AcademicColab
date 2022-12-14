@@ -25,7 +25,7 @@ const Nav = () => {
   };
 
   return (
-    <div class="h-[48px] bg-[rgb(255,255,255)] flex items-center justify-between drop-shadow-md">
+    <div class="max-h-12 bg-[rgb(255,255,255)] flex items-center justify-between drop-shadow-md">
       <div class=" ml-8">
         <Link to="/home">
           <div class="font-mono font-bold text-xl">Colab</div>

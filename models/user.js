@@ -40,6 +40,12 @@ const userSchema = new mongoose.Schema({
   bio: {
     type: String,
   },
+  interests: [
+    {
+      name: String,
+      checked: Boolean,
+    },
+  ],
 });
 
 const { JWT_PK } = process.env;
