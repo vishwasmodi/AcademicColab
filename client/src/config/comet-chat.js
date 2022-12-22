@@ -1,7 +1,7 @@
 import { CometChat } from "@cometchat-pro/chat";
 
 export const cometInit = () => {
-  let appID = "225794d776f6bb61";
+  let appID = "228331214bce899a";
   let region = "us";
   let appSetting = new CometChat.AppSettingsBuilder()
     .subscribePresenceForAllUsers()
@@ -20,7 +20,7 @@ export const cometInit = () => {
 
 export const cometChatLogin = async (user) => {
   const UID = user.uid;
-  let authKey = "99464bfd6665f768d342f6ebcd6cbe0788b7008a";
+  let authKey = "aa4d09175624cdad2691e12a9c4658afafa4fcdb";
 
   CometChat.getLoggedinUser().then(
     (user) => {
@@ -42,7 +42,7 @@ export const cometChatLogin = async (user) => {
 };
 
 export const cometChatSignup = async (user) => {
-  let authKey = "99464bfd6665f768d342f6ebcd6cbe0788b7008a";
+  let authKey = "aa4d09175624cdad2691e12a9c4658afafa4fcdb";
 
   var UID = user.uid;
   var name = user.displayName;
