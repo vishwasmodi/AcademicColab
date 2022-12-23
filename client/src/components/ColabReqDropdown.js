@@ -29,10 +29,10 @@ const ColabReqDropdown = () => {
       </button>
 
       {colabDropdown ? (
-        <div class="fixed top-14 right-10 overflow-auto">
+        <div class="fixed top-14 right-72 overflow-auto">
           {requests.map((request) => {
             return (
-              <div class="rounded shadow-lg pb-4 px-2 mb-2 w-72 bg-[rgb(245,245,245)] opacity-90 hover:scale-105">
+              <div class="rounded shadow-lg pb-4 px-2 mb-2 w-64 bg-[rgb(245,245,245)] opacity-90 hover:scale-105">
                 <h1>{request.senderName}</h1>
                 <h2>{request.projectName}</h2>
                 <button

@@ -47,21 +47,6 @@ const ProjectCard = ({
           Link:
           <Link to={`${link}`}> {link}</Link>{" "}
         </div>
-        <div class="mr-6">
-          <button
-            onClick={handleJoinProject}
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            disabled={loading}
-          >
-            <span>Join Project</span>
-            {loading === true ? (
-              <svg
-                class=" bg-blue-500 border-t-white border-2 rounded-full animate-spin h-5 w-5 mr-3  ..."
-                viewBox="0 0 24 24"
-              ></svg>
-            ) : null}
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -65,7 +65,8 @@ const CompleteDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const interests = allInterests.filter((interest) => interest.checked);
+    let interests = allInterests.filter((interest) => interest.checked);
+    interests = interests.map((interest) => interest.name);
     console.log(interests);
     setLoading(true);
     dispatch(

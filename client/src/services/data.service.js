@@ -127,6 +127,7 @@ const searchText = async (searchText) => {
 const filterProjects = async (interests) => {
   let params = interests.join("&");
   if (interests.length === 0) params = "all";
+
   return axios.get(API_URL + "projects/filter/" + params, {
     headers: {
       "x-auth-token": localStorage.getItem("user"),

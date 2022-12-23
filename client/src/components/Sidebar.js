@@ -19,9 +19,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
 
   const handleCheckbox = (e) => {
-    e.preventDefault();
     const { name, checked } = e.target;
-    e.target.checked = !e.target.checked;
     if (checked) {
       setInterests([...interests, name]);
     } else {
@@ -34,8 +32,8 @@ const Sidebar = () => {
   }, [interests]);
 
   return (
-    <div class="w-1/4 sticky top-12 h-[90vh]">
-      <div class="bg-white rounded-xl ml-4 mr-8 mt-4 h-full shadow-lg text-black">
+    <div class=" h-[90vh] mr-4 sticky top-16">
+      <div class="bg-white rounded-xl ml-4 pr-8 mt-4 h-full shadow-lg text-black w-auto">
         <div class="ml-10 text-sm">
           <div class="mb-2 pt-4 block uppercase text-gray-700 text-xs font-bold">
             Fields

@@ -109,18 +109,28 @@ router.get("/search/:text", async (req, res) => {
   res.send(filteredProjects);
 });
 
-router.get("/filter/:interests", async (req, res) => {
-  console.log(req.params.interests);
+router.get("/filter/:interests", auth, async (req, res) => {
   const interests = req.params.interests.split("&");
-  console.log(interests);
   const projects = await Project.find();
   if (req.params.interests === "all") {
     res.send(projects);
     return;
+  } else if (interests[0] === "my-interests") {
+    const user = await User.findById(req.user._id).exec();
+    console.log(user.interests);
+    console.log(projects);
+    const filteredProjects = projects.filter((project) =>
+      user.interests.some((val) => {
+        console.log(val);
+        return project.interests.includes(val);
+      })
+    );
+    console.log("filtered", filteredProjects);
+    res.send(filteredProjects);
+    return;
   }
   const filteredProjects = projects.filter((project) =>
     interests.every((val) => {
-      console.log("val", val, project.interests);
       return project.interests.includes(val);
     })
   );

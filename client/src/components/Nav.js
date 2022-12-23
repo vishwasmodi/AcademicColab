@@ -25,7 +25,7 @@ const Nav = () => {
   };
 
   return (
-    <div class="max-h-12 bg-[rgb(255,255,255)] flex items-center justify-between drop-shadow-md">
+    <div class="max-h-12 bg-[rgb(255,255,255)] flex items-center justify-between drop-shadow-md ">
       <div class=" ml-8">
         <Link to="/home">
           <div class="font-mono font-bold text-xl">Colab</div>
@@ -33,7 +33,7 @@ const Nav = () => {
         </Link>
       </div>
       <Search />
-      <div class="flex  flex-row mr-10">
+      <div class="flex flex-row mr-10">
         <ColabReqDropdown />
 
         <button class=" h-3 w-6 mt-4 ml-4" onClick={handleLogout}>
