@@ -1,4 +1,4 @@
-/node_modules
-/.env
-/temp.txt
-/config/serviceAccount.json
+server/node_modules
+server/.env
+server/temp.txt
+server/config/serviceAccount.json

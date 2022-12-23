@@ -40,5 +40,7 @@ app.use("/api/colaboratorsReq", colaboratorsReq);
 app.use("/api/messages", messages);
 app.use("/api/googleScholar", googleScholar);
 
-const port = 5500;
-app.listen(port, () => console.log("listening to port 5500"));
+const port = process.env.PORT;
+app.listen(port, () => {
+  console.log("Listening on port", port);
+});

@@ -91,7 +91,6 @@ router.delete("/:id", auth, async (req, res) => {
 });
 
 router.get("/search/:text", async (req, res) => {
-  console.log("hii", req.params.text);
   const projects = await Project.find();
   if (req.params.text === "all") {
     res.send(projects);
